@@ -34,7 +34,7 @@ int main() {
 	}
 	//绑定地址
 	server_addr.sin_family = AF_INET;
-	server_addr.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
+	server_addr.sin_addr.S_un.S_addr = inet_addr("123.60.173.178");
 	server_addr.sin_port = htons(7777);//转换为小端存储
 	//创建套接字
 	s_server = socket(AF_INET, SOCK_STREAM, 0);

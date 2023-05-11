@@ -37,9 +37,9 @@ int main(){
 	//填充服务端地址信息
 	
 	//填充服务端信息
-	server_addr.sin_family=AF_INET;
-	server_addr.sin_addr.S_un.S_addr= htonl(INADDR_ANY);
-	server_addr.sin_port=htons(7777);
+	server_addr.sin_family=AF_INET;//表示使用IPv4地址族 
+	server_addr.sin_addr.S_un.S_addr= htonl(INADDR_ANY);//表示服务器可以使用任意网络接口上的IP地址。 
+	server_addr.sin_port=htons(7777);//这是服务器监听的端口号，'htons'函数将端口号从主机字节序转换为网络字节序(大端字节序) 
 	
 	//创建套接字 
 	s_server = socket(AF_INET, SOCK_STREAM, 0);
