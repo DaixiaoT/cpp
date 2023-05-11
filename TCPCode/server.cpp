@@ -1,103 +1,103 @@
 #include<iostream>
-#include<winsock.h>
+#include<socket.h>
 #pragma comment(lib,"ws2_32.lib")
 using namespace std;
 int main(){
 	int send_len = 0;
 	int recv_len = 0;
 	int len = 0;
-	//定义发送缓冲区和接收缓冲区
+	//露篓脪氓路垄脣脥禄潞鲁氓脟酶潞脥陆脫脢脮禄潞鲁氓脟酶
 	char send_buf[100];
 	char recv_buf[100];
-	//定义服务端套接字，接收请求套接字
+	//露篓脪氓路镁脦帽露脣脤脳陆脫脳脰拢卢陆脫脢脮脟毛脟贸脤脳陆脫脳脰
 	SOCKET s_server;
 	SOCKET s_accept; 
-	//服务端地址客户端地址
+	//路镁脦帽露脣碌脴脰路驴脥禄搂露脣碌脴脰路
 	SOCKADDR_IN server_addr;
 	SOCKADDR_IN accept_addr;
-	//打开
-	WORD w_req = MAKEWORD(2,2);//版本号
-	WSADATA wsadata;//结构体：拿到版本，版本校验
+	//麓貌驴陋
+	WORD w_req = MAKEWORD(2,2);//掳忙卤戮潞脜
+	WSADATA wsadata;//陆谩鹿鹿脤氓拢潞脛脙碌陆掳忙卤戮拢卢掳忙卤戮脨拢脩茅
 	int err;
-	err = WSAStartup(w_req, &wsadata);//查看是否打开成功 
+	err = WSAStartup(w_req, &wsadata);//虏茅驴麓脢脟路帽麓貌驴陋鲁脡鹿娄 
 	if(err != 0){
-		cout << "打开失败" << endl;
+		cout << "麓貌驴陋脢搂掳脺" << endl;
 		WSACleanup(); 
 	}else{
-		cout << "打开成功！" << endl;
+		cout << "麓貌驴陋鲁脡鹿娄拢隆" << endl;
 	} 
-	//检测版本号
+	//录矛虏芒掳忙卤戮潞脜
 	if(LOBYTE(wsadata.wVersion) != 2 || HIBYTE(wsadata.wHighVersion != 2)){
-		cout << "版本号不符！" <<endl;
+		cout << "掳忙卤戮潞脜虏禄路没拢隆" <<endl;
 		WSACleanup(); 
 	}
 	else{
-		cout<< "版本正确" << endl; 
+		cout<< "掳忙卤戮脮媒脠路" << endl; 
 	} 
-	//填充服务端地址信息
+	//脤卯鲁盲路镁脦帽露脣碌脴脰路脨脜脧垄
 	
-	//填充服务端信息
+	//脤卯鲁盲路镁脦帽露脣脨脜脧垄
 	server_addr.sin_family=AF_INET;
 	server_addr.sin_addr.S_un.S_addr= htonl(INADDR_ANY);
 	server_addr.sin_port=htons(7777);
 	
-	//创建套接字 
+	//麓麓陆篓脤脳陆脫脳脰 
 	s_server = socket(AF_INET, SOCK_STREAM, 0);
 	if(bind(s_server,(SOCKADDR*)&server_addr, sizeof(SOCKADDR)) == SOCKET_ERROR) {
-		cout << "bind 失败！" << endl;
+		cout << "bind 脢搂掳脺拢隆" << endl;
 		WSACleanup();
 	}
 	else{
-		cout << "bind 成功！" << endl;
+		cout << "bind 鲁脡鹿娄拢隆" << endl;
 	}
 	
-	//监听
+	//录脿脤媒
 	if( listen ( s_server, SOMAXCONN) < 0 ){
-		cout << "设置监听状态失败！" <<endl;
+		cout << "脡猫脰脙录脿脤媒脳麓脤卢脢搂掳脺拢隆" <<endl;
 		WSACleanup();
 	}else{
-		cout << "设置监听状态成功！" <<endl;
+		cout << "脡猫脰脙录脿脤媒脳麓脤卢鲁脡鹿娄拢隆" <<endl;
 	}
 	
-	cout << "服务端正在监听连接，请稍后..." << endl;
+	cout << "路镁脦帽露脣脮媒脭脷录脿脤媒脕卢陆脫拢卢脟毛脡脭潞贸..." << endl;
 	
-	//接收连接请求
+	//陆脫脢脮脕卢陆脫脟毛脟贸
 	
 	len = sizeof(SOCKADDR);
 	s_accept=accept(s_server,(SOCKADDR*)&accept_addr, &len);
 	if (s_accept == SOCKET_ERROR){
-		cout << "连接失败！" <<endl;
+		cout << "脕卢陆脫脢搂掳脺拢隆" <<endl;
 		WSACleanup();
 		return 0;
 	}
-	cout << "连接建立，准备接收数据" << endl; 
+	cout << "脕卢陆脫陆篓脕垄拢卢脳录卤赂陆脫脢脮脢媒戮脻" << endl; 
 	
-	// 接收数据
+	// 陆脫脢脮脢媒戮脻
 	while(1){
 		recv_len= recv(s_accept, recv_buf, 100, 0);
 		if(recv_len < 0){
-			cout << "接收失败！" <<endl;
+			cout << "陆脫脢脮脢搂掳脺拢隆" <<endl;
 			break; 
 		}else{
 			if(recv_buf[0] == 'b' && recv_buf[1] == 'y' && recv_buf[2] == 'e' && recv_buf[3]=='\0'){
-				cout << "关闭客户端，byebye~" <<endl;
+				cout << "鹿脴卤脮驴脥禄搂露脣拢卢byebye~" <<endl;
 				break; 
 			}
-			cout << "客户端信息：" << recv_buf << endl;
+			cout << "驴脥禄搂露脣脨脜脧垄拢潞" << recv_buf << endl;
 		}
-		cout<<"请输入回复信息：";
+		cout<<"脟毛脢盲脠毛禄脴赂麓脨脜脧垄拢潞";
 		cin >> send_buf;
 		send_len = send( s_accept, send_buf, 100, 0);
 		if(send_len < 0){
-			cout << "发送失败!" << endl;
+			cout << "路垄脣脥脢搂掳脺!" << endl;
 			break;
 		} 
 		
 	} 
-	//关闭套接字
+	//鹿脴卤脮脤脳陆脫脳脰
 	closesocket(s_server);
 	closesocket(s_accept);
-	//释放DLL资源
+	//脢脥路脜DLL脳脢脭麓
 	WSACleanup();
 	return 0; 
 	
