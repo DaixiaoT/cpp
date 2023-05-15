@@ -13,7 +13,7 @@ int main() {
 	char recv_buf[100];
 	//定义服务端套接字，接受请求套接字
 	SOCKET s_server;
-	SOCKET s_accept;
+	SOCKET s_accept; 
 	//服务端地址客户端地址
 	SOCKADDR_IN server_addr;
 	SOCKADDR_IN accept_addr;
