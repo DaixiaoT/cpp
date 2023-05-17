@@ -3,79 +3,78 @@
 #pragma comment(lib,"ws2_32.lib")
 using namespace std;
 int main() {
-	printf("hello world");
-	
-	//å®šä¹‰é•¿åº¦å˜é‡
+
+	//¶¨Òå³¤¶È±äÁ¿
 	int send_len = 0;
 	int recv_len = 0;
-	//å®šä¹‰å‘é€ç¼“å†²åŒºå’Œæ¥å—ç¼“å†²åŒº
+	//¶¨Òå·¢ËÍ»º³åÇøºÍ½ÓÊÜ»º³åÇø
 	char send_buf[100];
 	char recv_buf[100];
-	//å®šä¹‰æœåŠ¡ç«¯å¥—æ¥å­—ï¼Œæ¥å—è¯·æ±‚å¥—æ¥å­—
+	//¶¨Òå·şÎñ¶ËÌ×½Ó×Ö£¬½ÓÊÜÇëÇóÌ×½Ó×Ö
 	SOCKET s_server;
-	//æœåŠ¡ç«¯åœ°å€å®¢æˆ·ç«¯åœ°å€
+	//·şÎñ¶ËµØÖ·¿Í»§¶ËµØÖ·
 	SOCKADDR_IN server_addr;
-	//æ‰“å¼€
-	WORD w_req = MAKEWORD(2, 2);//ç‰ˆæœ¬å·
+	//´ò¿ª
+	WORD w_req = MAKEWORD(2, 2);//°æ±¾ºÅ
 	WSADATA wsadata;
 	int err;
-	err = WSAStartup(w_req, &wsadata);//æŸ¥çœ‹æ˜¯å¦æ‰“å¼€æˆåŠŸ 
+	err = WSAStartup(w_req, &wsadata);//²é¿´ÊÇ·ñ´ò¿ª³É¹¦ 
 	if (err != 0) {
-		cout << "æ‰“å¼€å¤±è´¥ï¼" << endl;
+		cout << "´ò¿ªÊ§°Ü£¡" << endl;
 	}
 	else {
-		cout << "æ‰“å¼€æˆåŠŸï¼" << endl;
+		cout << "´ò¿ª³É¹¦£¡" << endl;
 	}
-	//æ£€æµ‹ç‰ˆæœ¬å·
+	//¼ì²â°æ±¾ºÅ
 	if (LOBYTE(wsadata.wVersion) != 2 || HIBYTE(wsadata.wHighVersion) != 2) {
-		cout << "ç‰ˆæœ¬å·ä¸ç¬¦ï¼" << endl;
+		cout << "°æ±¾ºÅ²»·û£¡" << endl;
 		WSACleanup();
 	}
 	else {
-		cout << "ç‰ˆæœ¬æ­£ç¡®ï¼" << endl;
+		cout << "°æ±¾ÕıÈ·£¡" << endl;
 	}
-	//ç»‘å®šåœ°å€
+	//°ó¶¨µØÖ·
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
-	server_addr.sin_port = htons(7777);//è½¬æ¢ä¸ºå°ç«¯å­˜å‚¨
-	//åˆ›å»ºå¥—æ¥å­—
+	server_addr.sin_port = htons(7777);//×ª»»ÎªĞ¡¶Ë´æ´¢
+	//´´½¨Ì×½Ó×Ö
 	s_server = socket(AF_INET, SOCK_STREAM, 0);
 	if (connect(s_server, (SOCKADDR*)&server_addr, sizeof(SOCKADDR)) == SOCKET_ERROR) {
-		cout << "æœåŠ¡å™¨è¿æ¥å¤±è´¥ï¼" << endl;
+		cout << "·şÎñÆ÷Á¬½ÓÊ§°Ü£¡" << endl;
 		WSACleanup();
 	}
 	else {
-		cout << "æœåŠ¡å™¨è¿æ¥æˆåŠŸï¼" << endl;
+		cout << "·şÎñÆ÷Á¬½Ó³É¹¦£¡" << endl;
 	}
 
-	//å‘é€,æ¥æ”¶æ•°æ®
+	//·¢ËÍ,½ÓÊÕÊı¾İ
 	while (1) {
-		cout << "è¯·è¾“å…¥å‘é€ä¿¡æ¯:";
+		cout << "ÇëÊäÈë·¢ËÍĞÅÏ¢:";
 		cin >> send_buf;
 		send_len = send(s_server, send_buf, 100, 0);
 		if (send_len < 0) {
-			cout << "å‘é€å¤±è´¥ï¼" << endl;
+			cout << "·¢ËÍÊ§°Ü£¡" << endl;
 			break;
 		}
 		recv_len = recv(s_server, recv_buf, 100, 0);
 		if (recv_len < 0) {
-			cout << "æ¥å—å¤±è´¥ï¼" << endl;
+			cout << "½ÓÊÜÊ§°Ü£¡" << endl;
 			break;
 		}
 		else {	
 			if ( send_buf[0] == 'b' && send_buf[1] == 'y' && send_buf[2] == 'e'&&send_buf[3]=='\0') {
-                cout << "å…³é—­æœåŠ¡å™¨ç«¯ï¼Œbyebye~" << endl;
+                cout << "¹Ø±Õ·şÎñÆ÷¶Ë£¬byebye~" << endl;
 				break;
 			}
-			cout << "æœåŠ¡ç«¯ä¿¡æ¯:" << recv_buf << endl;
+			cout << "·şÎñ¶ËĞÅÏ¢:" << recv_buf << endl;
 		
 
 		}
 
 	}
-	//å…³é—­å¥—æ¥å­—
+	//¹Ø±ÕÌ×½Ó×Ö
 	closesocket(s_server);
-	//é‡Šæ”¾DLLèµ„æº
+	//ÊÍ·ÅDLL×ÊÔ´
 	WSACleanup();
 	return 0;
 }
