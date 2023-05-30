@@ -9,4 +9,6 @@ int main(int argc, char *argv[])//入口函数，有且只有一个
     w.show();
 
     return a.exec();
+
+    return 0;
 }

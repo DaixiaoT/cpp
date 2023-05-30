@@ -22,4 +22,5 @@ void MainWindow::on_countBtn_clicked()
     int valueInt=valueStr.toInt(&ok);
     double area=valueInt*valueInt*PI;
     ui->arealabel_2->setText(tempStr.setNum(area));
+    QString str;
 }
