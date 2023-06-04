@@ -1,5 +1,6 @@
 #include "inputdlg.h"
-#include <QString>
+#include <QInputDialog>
+
 InputDlg::InputDlg(QWidget* parent):QDialog(parent)
 {
     setWindowTitle(tr("标准输入对话框实例"));
@@ -54,12 +55,26 @@ InputDlg::InputDlg(QWidget* parent):QDialog(parent)
 
     mainLayout->setMargin(15);
     mainLayout->setSpacing(10);
-    connect(nameBtn, SIGNAL(clicked()), this, SLOT(ChangeName()));
-    connect(sexBtn, SIGNAL(clicked()), this, SLOT(ChangeSex));
+    connect(nameBtn, SIGNAL(clicked(bool)), this, SLOT(ChangeName()));
+    connect(sexBtn, SIGNAL(clicked()), this, SLOT(ChangeSex()));
     connect(ageBtn, SIGNAL(clicked()), this, SLOT(ChangeAge()));
     connect(scoreBtn, SIGNAL(clicked()), this, SLOT(ChangeScore()));
 
 }
+
+/*******************getText()*******************
+QString getText(
+    QWidget* parent,    //标准输入对话框的父窗口
+    const QString& title,   //标准输入对话框的标题名
+    const QString& label,   //标准输入对话框的标签提示
+    QLineEdit::EchoMode mode = QLineEdit::Normal,
+                        //指定标准输入对话框中QLineEdit控件的输入模式
+    const QString& text = QString(),
+                        //标准字符串输入对话框弹出时QLineEdit控件中默认出现的文字
+    bool* ok=0,         //注
+    Qt::WindowFlags flags=0 //指明标准输入对话框的窗体标识
+);
+*******************getText()*******************/
 
 void InputDlg::ChangeName()
 {
@@ -69,11 +84,44 @@ void InputDlg::ChangeName()
         nameLabel2->setText(text);
     }
 }
+/*******************getItem()*******************
+QString getItem(
+    QWidget* parent,        //标准输入对话框的父窗口
+    const QString& title,   //标准输入对话框的标题名
+    const QString& label,   //标准输入对话框的标签提示
+    const QStringList& items,//注
+    int current=0,          //注
+    bool editable=0,        //指定QComboBox控件中显示的文字是否可编辑
+    bool * ok=0,            //注
+    Qt::WindowFlags flags=0 //指明标准输入对话框的窗体标识
+);
+*******************getItem()*******************/
 
 void InputDlg::ChangeSex()
 {
-
+    QStringList SexItems;
+    SexItems << tr("男") << tr("女");
+    bool ok;
+    QString SexItem = QInputDialog::getItem(this, tr("标准条目选择对话框"), tr("请选择性别:"), SexItems, 0, false, &ok);
+    if(ok && !SexItem.isEmpty()){
+        sexLabel2->setText(SexItem);
+    }
 }
+/*******************getInt()*******************/
+int getInt(
+        QWidget* parent,        //标准输入对话框的父窗口
+        const QString& title,   //标准输入对话框的标题名
+        const QString& label,   //标准输入对话框的标签提示
+        int value=0,            //指定标准输入对话框中QSpinBox控件的默认显示值
+        int min=-2147483647,
+        int max=2147483647,
+        int step=1,
+        bool* ok=0,
+        Qt::WindowFlags flags=0
+);
+/*******************getInt()*******************/
+
+
 
 void InputDlg::ChangeAge()
 {

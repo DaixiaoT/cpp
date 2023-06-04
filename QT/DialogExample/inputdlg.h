@@ -5,18 +5,14 @@
 #include <QPushButton>
 #include <QGridLayout>
 #include <QDialog>
-#include <QInputDialog>
+//#include <QInputDialog>
 class InputDlg : public QDialog
 {
-
+    Q_OBJECT
 
 public:
     InputDlg(QWidget* parent=0);
-private slots:
-    void ChangeName();
-    void ChangeSex();
-    void ChangeAge();
-    void ChangeScore();
+
 
 private:
     QLabel *nameLabel1;
@@ -34,6 +30,11 @@ private:
     QPushButton *ageBtn;
     QPushButton *scoreBtn;
     QGridLayout *mainLayout;
+private slots:
+    void ChangeName();
+    void ChangeSex();
+    void ChangeAge();
+    void ChangeScore();
 
 };
 
