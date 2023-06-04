@@ -107,7 +107,7 @@ void InputDlg::ChangeSex()
         sexLabel2->setText(SexItem);
     }
 }
-/*******************getInt()*******************/
+/*******************getInt()*******************
 int getInt(
         QWidget* parent,        //标准输入对话框的父窗口
         const QString& title,   //标准输入对话框的标题名
@@ -115,17 +115,21 @@ int getInt(
         int value=0,            //指定标准输入对话框中QSpinBox控件的默认显示值
         int min=-2147483647,
         int max=2147483647,
-        int step=1,
+        int step=1,             //指定QSpinBox控件的步进直
         bool* ok=0,
         Qt::WindowFlags flags=0
 );
-/*******************getInt()*******************/
+*******************getInt()*******************/
 
 
 
 void InputDlg::ChangeAge()
 {
-
+    bool ok;
+    int age = QInputDialog::getInt(this, tr("标准int类型输入对话框"),tr("请输入年龄:"), ageLabel2->text().toInt(&ok), 0, 100, 1, &ok);
+    if(ok){
+        ageLabel2->setText(QString(tr("%1")).arg(age));
+    }
 }
 
 void InputDlg::ChangeScore()
