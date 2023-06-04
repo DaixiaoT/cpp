@@ -1,7 +1,6 @@
 #ifndef BASEINFO_H
 #define BASEINFO_H
 
-#include <QWidget>
 #include <QLabel>
 #include <QLineEdit>
 #include <QComboBox>
@@ -14,7 +13,7 @@ class BaseInfo : public QWidget
 {
     Q_OBJECT
 public:
-    explicit BaseInfo(QWidget *parent = nullptr);
+    explicit BaseInfo(QWidget *parent = 0);
 
 signals:
 

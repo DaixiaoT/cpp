@@ -1,7 +1,6 @@
 #ifndef DETAIL_H
 #define DETAIL_H
 
-#include <QWidget>
 #include <QLabel>
 #include <QComboBox>
 #include <QLineEdit>
