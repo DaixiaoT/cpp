@@ -6,7 +6,7 @@
 #include <QLineEdit>
 #include <QGridLayout>
 //添加标准输入对话框头文件
-#include "inputdlg_.h"
+#include "inputdlg.h"
 class Dialog : public QDialog
 {
     Q_OBJECT

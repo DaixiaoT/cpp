@@ -120,9 +120,6 @@ int getInt(
         Qt::WindowFlags flags=0
 );
 *******************getInt()*******************/
-
-
-
 void InputDlg::ChangeAge()
 {
     bool ok;
@@ -131,8 +128,24 @@ void InputDlg::ChangeAge()
         ageLabel2->setText(QString(tr("%1")).arg(age));
     }
 }
-
+/*******************getDouble()*******************/
+double getDouble(
+        QWidget* parent,        //标准输入对话框的父窗口
+        const QString& title,   //标准输入对话框的标题名
+        const QString& label,   //标准输入对话框的标签提示
+        double value=0,         //指定标准输入对话框中QSpinBox控件默认的显示值
+        double min=-2147483647,
+        double max=2147483647,
+        int decimals=1,         //指定QSpinBox控件的步进值
+        bool* ok=0,
+        Qt::WindowFlags flags=0 //指明标准输入对话框的窗口标识
+);
+/*******************getDouble()*******************/
 void InputDlg::ChangeScore()
 {
-
+    bool ok;
+    double score = QInputDialog::getDouble(this, tr("标准 double 类型输入对话框"), tr("请输入成绩:"), scoreLabel2->text().toDouble(&ok), 0, 100, 1, &ok);
+    if(ok){
+        scoreLabel2->setText(QString(tr("%1")).arg(score));
+    }
 }
