@@ -33,6 +33,13 @@ Dialog::Dialog(QWidget *parent)
     inputBtn->setText(tr("标准输入对话框实例"));
     /*****************************输入对话框***************************/
 
+    /*****************************消息对话框***************************/
+    MsgBtn = new QPushButton;//创建控件对象
+    MsgBtn->setText(tr("标准消息对话框实例"));
+    /*****************************消息对话框***************************/
+
+
+
     /**********添加布局管理********/
     mainLayout = new QGridLayout(this);//布局设计
     //文件对话框
@@ -46,6 +53,8 @@ Dialog::Dialog(QWidget *parent)
     mainLayout->addWidget(fontLineEdit, 2, 1);
     //输入对话框
     mainLayout->addWidget(inputBtn, 3, 0);
+    //消息对话框
+    mainLayout->addWidget(MsgBtn, 3, 1);;
 
     /**********添加事件管理********/
     //文件对话框
@@ -56,7 +65,8 @@ Dialog::Dialog(QWidget *parent)
     connect(fontBtn, SIGNAL(clicked(bool)), this, SLOT(showFont()));
     //输入对话框
     connect(inputBtn, SIGNAL(clicked(bool)), this, SLOT(showInputDlg()));
-
+    //消息对话框
+    connect(MsgBtn, SIGNAL(clicked(bool)), this, SLOT(showMsgDlg()));
 }
 //文件对话框槽函数
 void Dialog::showFile(){
@@ -86,7 +96,11 @@ void Dialog::showInputDlg()
     inputDlg->show();
 }
 
-
+//消息对话框槽函数
+void Dialog::showMsgDlg(){
+    msgDlg = new MsgBoxDlg();
+    msgDlg->show();
+}
 
 Dialog::~Dialog()
 {

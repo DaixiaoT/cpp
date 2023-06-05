@@ -7,6 +7,8 @@
 #include <QGridLayout>
 //添加标准输入对话框头文件
 #include "inputdlg.h"
+//添加消息对话框头文件
+#include <msgboxdlg.h>
 class Dialog : public QDialog
 {
     Q_OBJECT
@@ -33,11 +35,16 @@ private:
     QPushButton *inputBtn;
     InputDlg *inputDlg;//对话框实例
 
+    //消息对话框
+    QPushButton *MsgBtn;
+    MsgBoxDlg *msgDlg;
+
 private slots:
     void showFile();
     void showColor();
     void showFont();
     void showInputDlg();
+    void showMsgDlg();
 };
 
 #endif // DIALOG_H
