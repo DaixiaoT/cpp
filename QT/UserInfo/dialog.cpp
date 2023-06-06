@@ -50,9 +50,14 @@ Dialog::Dialog(QWidget *parent)
 
     HeadLabel = new QLabel(tr("头像:"));//右上角部分
     HeadIconLabel = new QLabel;
-    QPixmap icon("images/1.png");
+    QPixmap icon("debug/images/1.jpg");
+//    bool flag4 = icon.load("C://DXT//cpp//QT//UserInfo//1.jpg");//true
+//    bool flag1 = icon.load("debug/images/1.jpg");//true
+//    bool flag2 = icon.load("C:\\DXT\\cpp\\QT\\build-UserInfo-Desktop_Qt_5_11_1_MinGW_32bit-Debug\\debug\\images\\1.jpg");//true
+    //icon.load("C:/DXT/cpp/QT/build-UserInfo-Desktop_Qt_5_11_1_MinGW_32bit-Debug/debug/images/1.png");
     HeadIconLabel->setPixmap(icon);
-    HeadIconLabel->resize(icon.width(), icon.height());
+//    HeadIconLabel->resize(icon.width(), icon.height());
+
     UpdateHeadBtn = new QPushButton(tr("更新"));
 
     //完成右上侧头像选择区的布局
