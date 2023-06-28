@@ -1,16 +1,16 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'dialog.h'
+** Meta object code from reading C++ file 'msgboxdlg.h'
 **
 ** Created by: The Qt Meta Object Compiler version 67 (Qt 5.11.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../DialogExample/dialog.h"
+#include "../DialogExample/msgboxdlg.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'dialog.h' doesn't include <QObject>."
+#error "The header file 'msgboxdlg.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
 #error "This file was generated using the moc from 5.11.1. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -20,33 +20,34 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_Dialog_t {
+struct qt_meta_stringdata_MsgBoxDlg_t {
     QByteArrayData data[8];
-    char stringdata0[74];
+    char stringdata0[104];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_Dialog_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_MsgBoxDlg_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_Dialog_t qt_meta_stringdata_Dialog = {
+static const qt_meta_stringdata_MsgBoxDlg_t qt_meta_stringdata_MsgBoxDlg = {
     {
-QT_MOC_LITERAL(0, 0, 6), // "Dialog"
-QT_MOC_LITERAL(1, 7, 8), // "showFile"
-QT_MOC_LITERAL(2, 16, 0), // ""
-QT_MOC_LITERAL(3, 17, 9), // "showColor"
-QT_MOC_LITERAL(4, 27, 8), // "showFont"
-QT_MOC_LITERAL(5, 36, 12), // "showInputDlg"
-QT_MOC_LITERAL(6, 49, 10), // "showMsgDlg"
-QT_MOC_LITERAL(7, 60, 13) // "showCustomDlg"
+QT_MOC_LITERAL(0, 0, 9), // "MsgBoxDlg"
+QT_MOC_LITERAL(1, 10, 15), // "showQuestionMsg"
+QT_MOC_LITERAL(2, 26, 0), // ""
+QT_MOC_LITERAL(3, 27, 17), // "showInfomationMsg"
+QT_MOC_LITERAL(4, 45, 14), // "showWarningMsg"
+QT_MOC_LITERAL(5, 60, 15), // "showCriticalMsg"
+QT_MOC_LITERAL(6, 76, 12), // "showAboutMsg"
+QT_MOC_LITERAL(7, 89, 14) // "showAboutQtMsg"
 
     },
-    "Dialog\0showFile\0\0showColor\0showFont\0"
-    "showInputDlg\0showMsgDlg\0showCustomDlg"
+    "MsgBoxDlg\0showQuestionMsg\0\0showInfomationMsg\0"
+    "showWarningMsg\0showCriticalMsg\0"
+    "showAboutMsg\0showAboutQtMsg"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_Dialog[] = {
+static const uint qt_meta_data_MsgBoxDlg[] = {
 
  // content:
        7,       // revision
@@ -78,44 +79,44 @@ static const uint qt_meta_data_Dialog[] = {
        0        // eod
 };
 
-void Dialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void MsgBoxDlg::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        Dialog *_t = static_cast<Dialog *>(_o);
+        MsgBoxDlg *_t = static_cast<MsgBoxDlg *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->showFile(); break;
-        case 1: _t->showColor(); break;
-        case 2: _t->showFont(); break;
-        case 3: _t->showInputDlg(); break;
-        case 4: _t->showMsgDlg(); break;
-        case 5: _t->showCustomDlg(); break;
+        case 0: _t->showQuestionMsg(); break;
+        case 1: _t->showInfomationMsg(); break;
+        case 2: _t->showWarningMsg(); break;
+        case 3: _t->showCriticalMsg(); break;
+        case 4: _t->showAboutMsg(); break;
+        case 5: _t->showAboutQtMsg(); break;
         default: ;
         }
     }
     Q_UNUSED(_a);
 }
 
-QT_INIT_METAOBJECT const QMetaObject Dialog::staticMetaObject = {
-    { &QDialog::staticMetaObject, qt_meta_stringdata_Dialog.data,
-      qt_meta_data_Dialog,  qt_static_metacall, nullptr, nullptr}
+QT_INIT_METAOBJECT const QMetaObject MsgBoxDlg::staticMetaObject = {
+    { &QDialog::staticMetaObject, qt_meta_stringdata_MsgBoxDlg.data,
+      qt_meta_data_MsgBoxDlg,  qt_static_metacall, nullptr, nullptr}
 };
 
 
-const QMetaObject *Dialog::metaObject() const
+const QMetaObject *MsgBoxDlg::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *Dialog::qt_metacast(const char *_clname)
+void *MsgBoxDlg::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_Dialog.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_MsgBoxDlg.stringdata0))
         return static_cast<void*>(this);
     return QDialog::qt_metacast(_clname);
 }
 
-int Dialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int MsgBoxDlg::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QDialog::qt_metacall(_c, _id, _a);
     if (_id < 0)
