@@ -1,5 +1,5 @@
 #include"../common.h"
-#define LED_PORT P2
+
 
 void main(){
     u8 i = 0;
