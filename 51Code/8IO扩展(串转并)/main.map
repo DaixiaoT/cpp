@@ -66,23 +66,23 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000019  s_SSEG                          
 C:   00000020  s_BSEG_BYTES                    
 C:   00000020  s__CODE                         
 C:   00000022  l_GSINIT3                       
+C:   00000023  s_SSEG                          
 C:   0000002A  l_GSINIT4                       
-C:   00000030  l_GSINIT                        
 C:   00000035  s_GSINIT4                       
+C:   0000004E  l_GSINIT                        
 C:   0000005F  s_GSINIT                        
 C:   0000005F  s_GSINIT5                       
 C:   00000080  l_DSEG                          
-C:   0000008F  s_GSFINAL                       
-C:   00000092  s_CSEG                          
-C:   000000A9  l_CSEG                          
-C:   000000E7  l_SSEG                          
+C:   000000AD  s_GSFINAL                       
+C:   000000B0  s_CSEG                          
+C:   000000DD  l_SSEG                          
 C:   00000100  l_IRAM                          
-C:   0000013B  s_CONST                         
-C:   0000013B  s_XINIT                         
+C:   000002EE  l_CSEG                          
+C:   0000039E  s_CONST                         
+C:   0000039E  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -252,17 +252,18 @@ DSEG                                00000000    00000080 =         128. bytes (R
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00000008  _gsmg_code                         main
+     00000019  _ghc595_buf                        main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-SSEG                                00000019    000000E7 =         231. bytes (REL,OVR)
+SSEG                                00000023    000000DD =         221. bytes (REL,OVR)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000019  __start__stack                     main
+     00000023  __start__stack                     main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 Hexadecimal  [32-Bits]
@@ -323,7 +324,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-GSINIT                              0000005F    00000030 =          48. bytes (REL,CON,CODE)
+GSINIT                              0000005F    0000004E =          78. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -332,7 +333,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-GSFINAL                             0000008F    00000003 =           3. bytes (REL,CON,CODE)
+GSFINAL                             000000AD    00000003 =           3. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -341,15 +342,19 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00000092    000000A9 =         169. bytes (REL,CON,CODE)
+CSEG                                000000B0    000002EE =         750. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000092  _delay_10us                        main
-C:   000000A4  _smg_display                       main
-C:   00000132  _main                              main
-C:   00000137  __sdcc_external_startup            _startup
-
+C:   000000B0  _delay_10us                        main
+C:   000000C2  _delay_ms                          main
+C:   000000E6  _smg_display                       main
+C:   00000174  _key_scan                          main
+C:   000001C5  _key_matrix_flip_scan              main
+C:   00000248  _key_matrix_ranks_scan             main
+C:   0000033D  _hc595_write_data                  main
+C:   00000377  _main                              main
+C:   0000039A  __sdcc_external_startup            _startup
 ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
 
 Files Linked                              [ module(s) ]

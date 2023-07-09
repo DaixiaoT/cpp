@@ -66,23 +66,23 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000019  s_SSEG                          
+C:   0000001B  s_SSEG                          
 C:   00000020  s_BSEG_BYTES                    
 C:   00000020  s__CODE                         
 C:   00000022  l_GSINIT3                       
 C:   0000002A  l_GSINIT4                       
-C:   00000030  l_GSINIT                        
 C:   00000035  s_GSINIT4                       
+C:   00000036  l_GSINIT                        
 C:   0000005F  s_GSINIT                        
 C:   0000005F  s_GSINIT5                       
 C:   00000080  l_DSEG                          
-C:   0000008F  s_GSFINAL                       
-C:   00000092  s_CSEG                          
-C:   000000A9  l_CSEG                          
-C:   000000E7  l_SSEG                          
+C:   00000095  s_GSFINAL                       
+C:   00000098  s_CSEG                          
+C:   000000E5  l_SSEG                          
 C:   00000100  l_IRAM                          
-C:   0000013B  s_CONST                         
-C:   0000013B  s_XINIT                         
+C:   0000027E  l_CSEG                          
+C:   00000316  s_CONST                         
+C:   00000316  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -258,11 +258,11 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-SSEG                                00000019    000000E7 =         231. bytes (REL,OVR)
+SSEG                                0000001B    000000E5 =         229. bytes (REL,OVR)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000019  __start__stack                     main
+     0000001B  __start__stack                     main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 Hexadecimal  [32-Bits]
@@ -323,7 +323,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-GSINIT                              0000005F    00000030 =          48. bytes (REL,CON,CODE)
+GSINIT                              0000005F    00000036 =          54. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -332,7 +332,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-GSFINAL                             0000008F    00000003 =           3. bytes (REL,CON,CODE)
+GSFINAL                             00000095    00000003 =           3. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -341,14 +341,17 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00000092    000000A9 =         169. bytes (REL,CON,CODE)
+CSEG                                00000098    0000027E =         638. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000092  _delay_10us                        main
-C:   000000A4  _smg_display                       main
-C:   00000132  _main                              main
-C:   00000137  __sdcc_external_startup            _startup
+C:   00000098  _delay_10us                        main
+C:   000000AA  _smg_display                       main
+C:   00000138  _key_scan                          main
+C:   00000189  _key_matrix_flip_scan              main
+C:   0000020C  _key_matrix_ranks_scan             main
+C:   00000301  _main                              main
+C:   00000312  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
 

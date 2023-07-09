@@ -365,7 +365,7 @@
                                     365 	.area HOME    (CODE)
                                     366 	.area HOME    (CODE)
       000003                        367 __sdcc_program_startup:
-      000003 02 01 27         [24]  368 	ljmp	_main
+      000003 02 01 32         [24]  368 	ljmp	_main
                                     369 ;	return from main will return to caller
                                     370 ;--------------------------------------------------------
                                     371 ; code
@@ -414,183 +414,190 @@
                                     414 ;	 function smg_display
                                     415 ;	-----------------------------------------
       0000A4                        416 _smg_display:
-                                    417 ;	../common.h:28: for (i = 0; i < 8; i++)
-      0000A4 7F 00            [12]  418 	mov	r7,#0x00
+                                    417 ;	../common.h:28: for (i = 8; i < 16; i++)
+      0000A4 7F 08            [12]  418 	mov	r7,#0x08
       0000A6                        419 00112$:
                                     420 ;	../common.h:30: switch (i)
-      0000A6 EF               [12]  421 	mov	a,r7
-      0000A7 24 F8            [12]  422 	add	a,#0xff - 0x07
-      0000A9 50 03            [24]  423 	jnc	00125$
-      0000AB 02 01 0A         [24]  424 	ljmp	00110$
-      0000AE                        425 00125$:
+      0000A6 BF 08 00         [24]  421 	cjne	r7,#0x08,00129$
+      0000A9                        422 00129$:
+      0000A9 50 03            [24]  423 	jnc	00130$
+      0000AB 02 01 15         [24]  424 	ljmp	00110$
+      0000AE                        425 00130$:
       0000AE EF               [12]  426 	mov	a,r7
-      0000AF 24 0A            [12]  427 	add	a,#(00126$-3-.)
-      0000B1 83               [24]  428 	movc	a,@a+pc
-      0000B2 F5 82            [12]  429 	mov	dpl,a
-      0000B4 EF               [12]  430 	mov	a,r7
-      0000B5 24 0C            [12]  431 	add	a,#(00127$-3-.)
-      0000B7 83               [24]  432 	movc	a,@a+pc
-      0000B8 F5 83            [12]  433 	mov	dph,a
-      0000BA E4               [12]  434 	clr	a
-      0000BB 73               [24]  435 	jmp	@a+dptr
-      0000BC                        436 00126$:
-      0000BC CC                     437 	.db	00101$
-      0000BD D4                     438 	.db	00102$
-      0000BE DC                     439 	.db	00103$
-      0000BF E4                     440 	.db	00104$
-      0000C0 EC                     441 	.db	00105$
-      0000C1 F4                     442 	.db	00106$
-      0000C2 FC                     443 	.db	00107$
-      0000C3 04                     444 	.db	00108$
-      0000C4                        445 00127$:
-      0000C4 00                     446 	.db	00101$>>8
-      0000C5 00                     447 	.db	00102$>>8
-      0000C6 00                     448 	.db	00103$>>8
-      0000C7 00                     449 	.db	00104$>>8
-      0000C8 00                     450 	.db	00105$>>8
-      0000C9 00                     451 	.db	00106$>>8
-      0000CA 00                     452 	.db	00107$>>8
-      0000CB 01                     453 	.db	00108$>>8
-                                    454 ;	../common.h:32: case 0:
-      0000CC                        455 00101$:
-                                    456 ;	../common.h:33: LSC = 1;
-                                    457 ;	assignBit
-      0000CC D2 A4            [12]  458 	setb	_P2_4
-                                    459 ;	../common.h:34: LSB = 1;
-                                    460 ;	assignBit
-      0000CE D2 A3            [12]  461 	setb	_P2_3
-                                    462 ;	../common.h:35: LSA = 1;
-                                    463 ;	assignBit
-      0000D0 D2 A2            [12]  464 	setb	_P2_2
-                                    465 ;	../common.h:36: break;
-                                    466 ;	../common.h:37: case 1:
-      0000D2 80 36            [24]  467 	sjmp	00110$
-      0000D4                        468 00102$:
-                                    469 ;	../common.h:38: LSC = 1;
+      0000AF 24 F0            [12]  427 	add	a,#0xff - 0x0f
+      0000B1 50 03            [24]  428 	jnc	00131$
+      0000B3 02 01 15         [24]  429 	ljmp	00110$
+      0000B6                        430 00131$:
+      0000B6 EF               [12]  431 	mov	a,r7
+      0000B7 24 F8            [12]  432 	add	a,#0xf8
+      0000B9 FE               [12]  433 	mov	r6,a
+      0000BA 24 0A            [12]  434 	add	a,#(00132$-3-.)
+      0000BC 83               [24]  435 	movc	a,@a+pc
+      0000BD F5 82            [12]  436 	mov	dpl,a
+      0000BF EE               [12]  437 	mov	a,r6
+      0000C0 24 0C            [12]  438 	add	a,#(00133$-3-.)
+      0000C2 83               [24]  439 	movc	a,@a+pc
+      0000C3 F5 83            [12]  440 	mov	dph,a
+      0000C5 E4               [12]  441 	clr	a
+      0000C6 73               [24]  442 	jmp	@a+dptr
+      0000C7                        443 00132$:
+      0000C7 D7                     444 	.db	00101$
+      0000C8 DF                     445 	.db	00102$
+      0000C9 E7                     446 	.db	00103$
+      0000CA EF                     447 	.db	00104$
+      0000CB F7                     448 	.db	00105$
+      0000CC FF                     449 	.db	00106$
+      0000CD 07                     450 	.db	00107$
+      0000CE 0F                     451 	.db	00108$
+      0000CF                        452 00133$:
+      0000CF 00                     453 	.db	00101$>>8
+      0000D0 00                     454 	.db	00102$>>8
+      0000D1 00                     455 	.db	00103$>>8
+      0000D2 00                     456 	.db	00104$>>8
+      0000D3 00                     457 	.db	00105$>>8
+      0000D4 00                     458 	.db	00106$>>8
+      0000D5 01                     459 	.db	00107$>>8
+      0000D6 01                     460 	.db	00108$>>8
+                                    461 ;	../common.h:32: case 8:
+      0000D7                        462 00101$:
+                                    463 ;	../common.h:33: LSC = 1;
+                                    464 ;	assignBit
+      0000D7 D2 A4            [12]  465 	setb	_P2_4
+                                    466 ;	../common.h:34: LSB = 1;
+                                    467 ;	assignBit
+      0000D9 D2 A3            [12]  468 	setb	_P2_3
+                                    469 ;	../common.h:35: LSA = 1;
                                     470 ;	assignBit
-      0000D4 D2 A4            [12]  471 	setb	_P2_4
-                                    472 ;	../common.h:39: LSB = 1;
-                                    473 ;	assignBit
-      0000D6 D2 A3            [12]  474 	setb	_P2_3
-                                    475 ;	../common.h:40: LSA = 0;
-                                    476 ;	assignBit
-      0000D8 C2 A2            [12]  477 	clr	_P2_2
-                                    478 ;	../common.h:41: break;
-                                    479 ;	../common.h:42: case 2:
-      0000DA 80 2E            [24]  480 	sjmp	00110$
-      0000DC                        481 00103$:
-                                    482 ;	../common.h:43: LSC = 1;
+      0000DB D2 A2            [12]  471 	setb	_P2_2
+                                    472 ;	../common.h:36: break;
+                                    473 ;	../common.h:37: case 9:
+      0000DD 80 36            [24]  474 	sjmp	00110$
+      0000DF                        475 00102$:
+                                    476 ;	../common.h:38: LSC = 1;
+                                    477 ;	assignBit
+      0000DF D2 A4            [12]  478 	setb	_P2_4
+                                    479 ;	../common.h:39: LSB = 1;
+                                    480 ;	assignBit
+      0000E1 D2 A3            [12]  481 	setb	_P2_3
+                                    482 ;	../common.h:40: LSA = 0;
                                     483 ;	assignBit
-      0000DC D2 A4            [12]  484 	setb	_P2_4
-                                    485 ;	../common.h:44: LSB = 0;
-                                    486 ;	assignBit
-      0000DE C2 A3            [12]  487 	clr	_P2_3
-                                    488 ;	../common.h:45: LSA = 1;
-                                    489 ;	assignBit
-      0000E0 D2 A2            [12]  490 	setb	_P2_2
-                                    491 ;	../common.h:46: break;
-                                    492 ;	../common.h:47: case 3:
-      0000E2 80 26            [24]  493 	sjmp	00110$
-      0000E4                        494 00104$:
-                                    495 ;	../common.h:48: LSC = 1;
+      0000E3 C2 A2            [12]  484 	clr	_P2_2
+                                    485 ;	../common.h:41: break;
+                                    486 ;	../common.h:42: case 10:
+      0000E5 80 2E            [24]  487 	sjmp	00110$
+      0000E7                        488 00103$:
+                                    489 ;	../common.h:43: LSC = 1;
+                                    490 ;	assignBit
+      0000E7 D2 A4            [12]  491 	setb	_P2_4
+                                    492 ;	../common.h:44: LSB = 0;
+                                    493 ;	assignBit
+      0000E9 C2 A3            [12]  494 	clr	_P2_3
+                                    495 ;	../common.h:45: LSA = 1;
                                     496 ;	assignBit
-      0000E4 D2 A4            [12]  497 	setb	_P2_4
-                                    498 ;	../common.h:49: LSB = 0;
-                                    499 ;	assignBit
-      0000E6 C2 A3            [12]  500 	clr	_P2_3
-                                    501 ;	../common.h:50: LSA = 0;
-                                    502 ;	assignBit
-      0000E8 C2 A2            [12]  503 	clr	_P2_2
-                                    504 ;	../common.h:51: break;
-                                    505 ;	../common.h:52: case 4:
-      0000EA 80 1E            [24]  506 	sjmp	00110$
-      0000EC                        507 00105$:
-                                    508 ;	../common.h:53: LSC = 0;
+      0000EB D2 A2            [12]  497 	setb	_P2_2
+                                    498 ;	../common.h:46: break;
+                                    499 ;	../common.h:47: case 11:
+      0000ED 80 26            [24]  500 	sjmp	00110$
+      0000EF                        501 00104$:
+                                    502 ;	../common.h:48: LSC = 1;
+                                    503 ;	assignBit
+      0000EF D2 A4            [12]  504 	setb	_P2_4
+                                    505 ;	../common.h:49: LSB = 0;
+                                    506 ;	assignBit
+      0000F1 C2 A3            [12]  507 	clr	_P2_3
+                                    508 ;	../common.h:50: LSA = 0;
                                     509 ;	assignBit
-      0000EC C2 A4            [12]  510 	clr	_P2_4
-                                    511 ;	../common.h:54: LSB = 1;
-                                    512 ;	assignBit
-      0000EE D2 A3            [12]  513 	setb	_P2_3
-                                    514 ;	../common.h:55: LSA = 1;
-                                    515 ;	assignBit
-      0000F0 D2 A2            [12]  516 	setb	_P2_2
-                                    517 ;	../common.h:56: break;
-                                    518 ;	../common.h:57: case 5:
-      0000F2 80 16            [24]  519 	sjmp	00110$
-      0000F4                        520 00106$:
-                                    521 ;	../common.h:58: LSC = 0;
+      0000F3 C2 A2            [12]  510 	clr	_P2_2
+                                    511 ;	../common.h:51: break;
+                                    512 ;	../common.h:52: case 12:
+      0000F5 80 1E            [24]  513 	sjmp	00110$
+      0000F7                        514 00105$:
+                                    515 ;	../common.h:53: LSC = 0;
+                                    516 ;	assignBit
+      0000F7 C2 A4            [12]  517 	clr	_P2_4
+                                    518 ;	../common.h:54: LSB = 1;
+                                    519 ;	assignBit
+      0000F9 D2 A3            [12]  520 	setb	_P2_3
+                                    521 ;	../common.h:55: LSA = 1;
                                     522 ;	assignBit
-      0000F4 C2 A4            [12]  523 	clr	_P2_4
-                                    524 ;	../common.h:59: LSB = 1;
-                                    525 ;	assignBit
-      0000F6 D2 A3            [12]  526 	setb	_P2_3
-                                    527 ;	../common.h:60: LSA = 0;
-                                    528 ;	assignBit
-      0000F8 C2 A2            [12]  529 	clr	_P2_2
-                                    530 ;	../common.h:61: break;
-                                    531 ;	../common.h:62: case 6:
-      0000FA 80 0E            [24]  532 	sjmp	00110$
-      0000FC                        533 00107$:
-                                    534 ;	../common.h:63: LSC = 0;
+      0000FB D2 A2            [12]  523 	setb	_P2_2
+                                    524 ;	../common.h:56: break;
+                                    525 ;	../common.h:57: case 13:
+      0000FD 80 16            [24]  526 	sjmp	00110$
+      0000FF                        527 00106$:
+                                    528 ;	../common.h:58: LSC = 0;
+                                    529 ;	assignBit
+      0000FF C2 A4            [12]  530 	clr	_P2_4
+                                    531 ;	../common.h:59: LSB = 1;
+                                    532 ;	assignBit
+      000101 D2 A3            [12]  533 	setb	_P2_3
+                                    534 ;	../common.h:60: LSA = 0;
                                     535 ;	assignBit
-      0000FC C2 A4            [12]  536 	clr	_P2_4
-                                    537 ;	../common.h:64: LSB = 0;
-                                    538 ;	assignBit
-      0000FE C2 A3            [12]  539 	clr	_P2_3
-                                    540 ;	../common.h:65: LSA = 1;
-                                    541 ;	assignBit
-      000100 D2 A2            [12]  542 	setb	_P2_2
-                                    543 ;	../common.h:66: break;
-                                    544 ;	../common.h:67: case 7:
-      000102 80 06            [24]  545 	sjmp	00110$
-      000104                        546 00108$:
-                                    547 ;	../common.h:68: LSC = 0;
+      000103 C2 A2            [12]  536 	clr	_P2_2
+                                    537 ;	../common.h:61: break;
+                                    538 ;	../common.h:62: case 14:
+      000105 80 0E            [24]  539 	sjmp	00110$
+      000107                        540 00107$:
+                                    541 ;	../common.h:63: LSC = 0;
+                                    542 ;	assignBit
+      000107 C2 A4            [12]  543 	clr	_P2_4
+                                    544 ;	../common.h:64: LSB = 0;
+                                    545 ;	assignBit
+      000109 C2 A3            [12]  546 	clr	_P2_3
+                                    547 ;	../common.h:65: LSA = 1;
                                     548 ;	assignBit
-      000104 C2 A4            [12]  549 	clr	_P2_4
-                                    550 ;	../common.h:69: LSB = 0;
-                                    551 ;	assignBit
-      000106 C2 A3            [12]  552 	clr	_P2_3
-                                    553 ;	../common.h:70: LSA = 0;
-                                    554 ;	assignBit
-      000108 C2 A2            [12]  555 	clr	_P2_2
-                                    556 ;	../common.h:76: }
-      00010A                        557 00110$:
-                                    558 ;	../common.h:77: SMG_A_DP_PORT = gsmg_code[i];
-      00010A EF               [12]  559 	mov	a,r7
-      00010B 24 08            [12]  560 	add	a,#_gsmg_code
-      00010D F9               [12]  561 	mov	r1,a
-      00010E 87 80            [24]  562 	mov	_P0,@r1
-                                    563 ;	../common.h:78: delay_10us(100);
-      000110 90 00 64         [24]  564 	mov	dptr,#0x0064
-      000113 C0 07            [24]  565 	push	ar7
-      000115 12 00 92         [24]  566 	lcall	_delay_10us
-      000118 D0 07            [24]  567 	pop	ar7
-                                    568 ;	../common.h:79: SMG_A_DP_PORT=0x00;
-      00011A 75 80 00         [24]  569 	mov	_P0,#0x00
-                                    570 ;	../common.h:28: for (i = 0; i < 8; i++)
-      00011D 0F               [12]  571 	inc	r7
-      00011E BF 08 00         [24]  572 	cjne	r7,#0x08,00128$
-      000121                        573 00128$:
-      000121 50 03            [24]  574 	jnc	00129$
-      000123 02 00 A6         [24]  575 	ljmp	00112$
-      000126                        576 00129$:
-                                    577 ;	../common.h:81: }
-      000126 22               [24]  578 	ret
-                                    579 ;------------------------------------------------------------
-                                    580 ;Allocation info for local variables in function 'main'
-                                    581 ;------------------------------------------------------------
-                                    582 ;	main.c:2: void main(){
-                                    583 ;	-----------------------------------------
-                                    584 ;	 function main
-                                    585 ;	-----------------------------------------
-      000127                        586 _main:
-                                    587 ;	main.c:3: while(1){
-      000127                        588 00102$:
-                                    589 ;	main.c:4: smg_display();
-      000127 12 00 A4         [24]  590 	lcall	_smg_display
-                                    591 ;	main.c:6: }
-      00012A 80 FB            [24]  592 	sjmp	00102$
-                                    593 	.area CSEG    (CODE)
-                                    594 	.area CONST   (CODE)
-                                    595 	.area XINIT   (CODE)
-                                    596 	.area CABS    (ABS,CODE)
+      00010B D2 A2            [12]  549 	setb	_P2_2
+                                    550 ;	../common.h:66: break;
+                                    551 ;	../common.h:67: case 15:
+      00010D 80 06            [24]  552 	sjmp	00110$
+      00010F                        553 00108$:
+                                    554 ;	../common.h:68: LSC = 0;
+                                    555 ;	assignBit
+      00010F C2 A4            [12]  556 	clr	_P2_4
+                                    557 ;	../common.h:69: LSB = 0;
+                                    558 ;	assignBit
+      000111 C2 A3            [12]  559 	clr	_P2_3
+                                    560 ;	../common.h:70: LSA = 0;
+                                    561 ;	assignBit
+      000113 C2 A2            [12]  562 	clr	_P2_2
+                                    563 ;	../common.h:76: }
+      000115                        564 00110$:
+                                    565 ;	../common.h:77: SMG_A_DP_PORT = gsmg_code[i];
+      000115 EF               [12]  566 	mov	a,r7
+      000116 24 08            [12]  567 	add	a,#_gsmg_code
+      000118 F9               [12]  568 	mov	r1,a
+      000119 87 80            [24]  569 	mov	_P0,@r1
+                                    570 ;	../common.h:78: delay_10us(100);
+      00011B 90 00 64         [24]  571 	mov	dptr,#0x0064
+      00011E C0 07            [24]  572 	push	ar7
+      000120 12 00 92         [24]  573 	lcall	_delay_10us
+      000123 D0 07            [24]  574 	pop	ar7
+                                    575 ;	../common.h:79: SMG_A_DP_PORT=0x00;
+      000125 75 80 00         [24]  576 	mov	_P0,#0x00
+                                    577 ;	../common.h:28: for (i = 8; i < 16; i++)
+      000128 0F               [12]  578 	inc	r7
+      000129 BF 10 00         [24]  579 	cjne	r7,#0x10,00134$
+      00012C                        580 00134$:
+      00012C 50 03            [24]  581 	jnc	00135$
+      00012E 02 00 A6         [24]  582 	ljmp	00112$
+      000131                        583 00135$:
+                                    584 ;	../common.h:81: }
+      000131 22               [24]  585 	ret
+                                    586 ;------------------------------------------------------------
+                                    587 ;Allocation info for local variables in function 'main'
+                                    588 ;------------------------------------------------------------
+                                    589 ;	main.c:2: void main(){
+                                    590 ;	-----------------------------------------
+                                    591 ;	 function main
+                                    592 ;	-----------------------------------------
+      000132                        593 _main:
+                                    594 ;	main.c:3: while(1){
+      000132                        595 00102$:
+                                    596 ;	main.c:4: smg_display();
+      000132 12 00 A4         [24]  597 	lcall	_smg_display
+                                    598 ;	main.c:6: }
+      000135 80 FB            [24]  599 	sjmp	00102$
+                                    600 	.area CSEG    (CODE)
+                                    601 	.area CONST   (CODE)
+                                    602 	.area XINIT   (CODE)
+                                    603 	.area CABS    (ABS,CODE)

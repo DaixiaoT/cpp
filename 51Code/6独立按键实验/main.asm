@@ -9,6 +9,7 @@
 ; Public variables in this module
 ;--------------------------------------------------------
 	.globl _main
+	.globl _key_scan
 	.globl _smg_display
 	.globl _delay_10us
 	.globl _TF2
@@ -271,6 +272,8 @@ _TF2	=	0x00cf
 	.area DSEG    (DATA)
 _gsmg_code::
 	.ds 17
+_key_scan_key_65536_8:
+	.ds 1
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
 ;--------------------------------------------------------
@@ -340,7 +343,15 @@ __interrupt_vect:
 	.globl __mcs51_genXINIT
 	.globl __mcs51_genXRAMCLEAR
 	.globl __mcs51_genRAMCLEAR
-;	../common.h:13: u8 gsmg_code[17] = {0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d,
+;------------------------------------------------------------
+;Allocation info for local variables in function 'key_scan'
+;------------------------------------------------------------
+;key                       Allocated with name '_key_scan_key_65536_8'
+;mode                      Allocated to registers r7 
+;------------------------------------------------------------
+;	../common.h:126: static u8 key = 1;
+	mov	_key_scan_key_65536_8,#0x01
+;	../common.h:31: u8 gsmg_code[17] = {0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d,
 	mov	_gsmg_code,#0x3f
 	mov	(_gsmg_code + 0x0001),#0x06
 	mov	(_gsmg_code + 0x0002),#0x5b
@@ -376,7 +387,7 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;ten_us                    Allocated to registers 
 ;------------------------------------------------------------
-;	../common.h:20: void delay_10us(u16 ten_us)
+;	../common.h:43: void delay_10us(u16 ten_us)
 ;	-----------------------------------------
 ;	 function delay_10us
 ;	-----------------------------------------
@@ -391,7 +402,7 @@ _delay_10us:
 	ar0 = 0x00
 	mov	r6,dpl
 	mov	r7,dph
-;	../common.h:22: while (ten_us--)
+;	../common.h:45: while (ten_us--)
 00101$:
 	mov	ar4,r6
 	mov	ar5,r7
@@ -402,22 +413,22 @@ _delay_10us:
 	mov	a,r4
 	orl	a,r5
 	jnz	00101$
-;	../common.h:24: }
+;	../common.h:47: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'smg_display'
 ;------------------------------------------------------------
 ;i                         Allocated to registers r7 
 ;------------------------------------------------------------
-;	../common.h:25: void smg_display()
+;	../common.h:56: void smg_display()
 ;	-----------------------------------------
 ;	 function smg_display
 ;	-----------------------------------------
 _smg_display:
-;	../common.h:28: for (i = 8; i < 16; i++)
+;	../common.h:59: for (i = 8; i < 16; i++)
 	mov	r7,#0x08
 00112$:
-;	../common.h:30: switch (i)
+;	../common.h:61: switch (i)
 	cjne	r7,#0x08,00129$
 00129$:
 	jnc	00130$
@@ -458,145 +469,220 @@ _smg_display:
 	.db	00106$>>8
 	.db	00107$>>8
 	.db	00108$>>8
-;	../common.h:32: case 8:
+;	../common.h:63: case 8:
 00101$:
-;	../common.h:33: LSC = 1;
+;	../common.h:64: LSC = 1;
 ;	assignBit
 	setb	_P2_4
-;	../common.h:34: LSB = 1;
+;	../common.h:65: LSB = 1;
 ;	assignBit
 	setb	_P2_3
-;	../common.h:35: LSA = 1;
+;	../common.h:66: LSA = 1;
 ;	assignBit
 	setb	_P2_2
-;	../common.h:36: break;
-;	../common.h:37: case 9:
+;	../common.h:67: break;
+;	../common.h:68: case 9:
 	sjmp	00110$
 00102$:
-;	../common.h:38: LSC = 1;
+;	../common.h:69: LSC = 1;
 ;	assignBit
 	setb	_P2_4
-;	../common.h:39: LSB = 1;
+;	../common.h:70: LSB = 1;
 ;	assignBit
 	setb	_P2_3
-;	../common.h:40: LSA = 0;
+;	../common.h:71: LSA = 0;
 ;	assignBit
 	clr	_P2_2
-;	../common.h:41: break;
-;	../common.h:42: case 10:
+;	../common.h:72: break;
+;	../common.h:73: case 10:
 	sjmp	00110$
 00103$:
-;	../common.h:43: LSC = 1;
+;	../common.h:74: LSC = 1;
 ;	assignBit
 	setb	_P2_4
-;	../common.h:44: LSB = 0;
+;	../common.h:75: LSB = 0;
 ;	assignBit
 	clr	_P2_3
-;	../common.h:45: LSA = 1;
+;	../common.h:76: LSA = 1;
 ;	assignBit
 	setb	_P2_2
-;	../common.h:46: break;
-;	../common.h:47: case 11:
+;	../common.h:77: break;
+;	../common.h:78: case 11:
 	sjmp	00110$
 00104$:
-;	../common.h:48: LSC = 1;
+;	../common.h:79: LSC = 1;
 ;	assignBit
 	setb	_P2_4
-;	../common.h:49: LSB = 0;
+;	../common.h:80: LSB = 0;
 ;	assignBit
 	clr	_P2_3
-;	../common.h:50: LSA = 0;
+;	../common.h:81: LSA = 0;
 ;	assignBit
 	clr	_P2_2
-;	../common.h:51: break;
-;	../common.h:52: case 12:
+;	../common.h:82: break;
+;	../common.h:83: case 12:
 	sjmp	00110$
 00105$:
-;	../common.h:53: LSC = 0;
+;	../common.h:84: LSC = 0;
 ;	assignBit
 	clr	_P2_4
-;	../common.h:54: LSB = 1;
+;	../common.h:85: LSB = 1;
 ;	assignBit
 	setb	_P2_3
-;	../common.h:55: LSA = 1;
+;	../common.h:86: LSA = 1;
 ;	assignBit
 	setb	_P2_2
-;	../common.h:56: break;
-;	../common.h:57: case 13:
+;	../common.h:87: break;
+;	../common.h:88: case 13:
 	sjmp	00110$
 00106$:
-;	../common.h:58: LSC = 0;
+;	../common.h:89: LSC = 0;
 ;	assignBit
 	clr	_P2_4
-;	../common.h:59: LSB = 1;
+;	../common.h:90: LSB = 1;
 ;	assignBit
 	setb	_P2_3
-;	../common.h:60: LSA = 0;
+;	../common.h:91: LSA = 0;
 ;	assignBit
 	clr	_P2_2
-;	../common.h:61: break;
-;	../common.h:62: case 14:
+;	../common.h:92: break;
+;	../common.h:93: case 14:
 	sjmp	00110$
 00107$:
-;	../common.h:63: LSC = 0;
+;	../common.h:94: LSC = 0;
 ;	assignBit
 	clr	_P2_4
-;	../common.h:64: LSB = 0;
+;	../common.h:95: LSB = 0;
 ;	assignBit
 	clr	_P2_3
-;	../common.h:65: LSA = 1;
+;	../common.h:96: LSA = 1;
 ;	assignBit
 	setb	_P2_2
-;	../common.h:66: break;
-;	../common.h:67: case 15:
+;	../common.h:97: break;
+;	../common.h:98: case 15:
 	sjmp	00110$
 00108$:
-;	../common.h:68: LSC = 0;
+;	../common.h:99: LSC = 0;
 ;	assignBit
 	clr	_P2_4
-;	../common.h:69: LSB = 0;
+;	../common.h:100: LSB = 0;
 ;	assignBit
 	clr	_P2_3
-;	../common.h:70: LSA = 0;
+;	../common.h:101: LSA = 0;
 ;	assignBit
 	clr	_P2_2
-;	../common.h:76: }
+;	../common.h:107: }
 00110$:
-;	../common.h:77: SMG_A_DP_PORT = gsmg_code[i];
+;	../common.h:108: SMG_A_DP_PORT = gsmg_code[i];
 	mov	a,r7
 	add	a,#_gsmg_code
 	mov	r1,a
 	mov	_P0,@r1
-;	../common.h:78: delay_10us(100);
+;	../common.h:109: delay_10us(100);
 	mov	dptr,#0x0064
 	push	ar7
 	lcall	_delay_10us
 	pop	ar7
-;	../common.h:79: SMG_A_DP_PORT=0x00;
+;	../common.h:110: SMG_A_DP_PORT=0x00;
 	mov	_P0,#0x00
-;	../common.h:28: for (i = 8; i < 16; i++)
+;	../common.h:59: for (i = 8; i < 16; i++)
 	inc	r7
 	cjne	r7,#0x10,00134$
 00134$:
 	jnc	00135$
 	ljmp	00112$
 00135$:
-;	../common.h:81: }
+;	../common.h:112: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'key_scan'
+;------------------------------------------------------------
+;key                       Allocated with name '_key_scan_key_65536_8'
+;mode                      Allocated to registers r7 
+;------------------------------------------------------------
+;	../common.h:125: u8 key_scan(u8 mode){
+;	-----------------------------------------
+;	 function key_scan
+;	-----------------------------------------
+_key_scan:
+;	../common.h:127: if(mode){//连续扫描按键
+	mov	a,dpl
+	mov	r7,a
+	jz	00102$
+;	../common.h:128: key=1;
+	mov	_key_scan_key_65536_8,#0x01
+00102$:
+;	../common.h:130: if(key==1 && (KEY1==0||KEY2==0||KEY3==0||KEY4==0))//任意按键按下
+	mov	a,#0x01
+	cjne	a,_key_scan_key_65536_8,00120$
+	jnb	_P3_1,00119$
+	jnb	_P3_0,00119$
+	jnb	_P3_2,00119$
+	jb	_P3_3,00120$
+00119$:
+;	../common.h:132: delay_10us(1000);//消抖
+	mov	dptr,#0x03e8
+	lcall	_delay_10us
+;	../common.h:133: key=0;
+	mov	_key_scan_key_65536_8,#0x00
+;	../common.h:134: if(KEY1==0){
+	jb	_P3_1,00112$
+;	../common.h:135: return KEY1_PRESS;
+	mov	dpl,#0x01
+	ret
+00112$:
+;	../common.h:137: else if(KEY2==0){
+	jb	_P3_0,00109$
+;	../common.h:138: return KEY2_PRESS;
+	mov	dpl,#0x01
+	ret
+00109$:
+;	../common.h:140: else if(KEY3==0){
+	jb	_P3_2,00106$
+;	../common.h:141: return KEY3_PRESS;
+	mov	dpl,#0x01
+	ret
+00106$:
+;	../common.h:143: else if(KEY4==0){
+	jb	_P3_3,00121$
+;	../common.h:144: return KEY4_PRESS;
+	mov	dpl,#0x01
+	ret
+00120$:
+;	../common.h:146: }else if(KEY1==1&&KEY2==1&&KEY3==1&&KEY4==1){
+	jnb	_P3_1,00121$
+	jnb	_P3_0,00121$
+	jnb	_P3_2,00121$
+	jnb	_P3_3,00121$
+;	../common.h:147: key=1;
+	mov	_key_scan_key_65536_8,#0x01
+00121$:
+;	../common.h:149: return KEY_UNPRESS;
+	mov	dpl,#0x00
+;	../common.h:150: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;	main.c:2: void main(){
+;key                       Allocated to registers r7 
+;------------------------------------------------------------
+;	main.c:3: void main(){
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	main.c:3: while(1){
-00102$:
-;	main.c:4: smg_display();
-	lcall	_smg_display
-;	main.c:6: }
-	sjmp	00102$
+;	main.c:5: while(1){
+00104$:
+;	main.c:6: key=key_scan(0);
+	mov	dpl,#0x00
+	lcall	_key_scan
+	mov	r7,dpl
+;	main.c:7: if(key==KEY1_PRESS){//检测按键K1是否按下
+	cjne	r7,#0x01,00104$
+;	main.c:8: LED1=!LED1;//LED1状态翻转
+	cpl	_P2_0
+;	main.c:11: }
+	sjmp	00104$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area XINIT   (CODE)
