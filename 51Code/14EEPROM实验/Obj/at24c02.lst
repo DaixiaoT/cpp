@@ -1,0 +1,430 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 3.8.0 #10562 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module at24c02
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _iic_read_byte
+                                     12 	.globl _iic_write_byte
+                                     13 	.globl _iic_wait_ack
+                                     14 	.globl _iic_stop
+                                     15 	.globl _iic_start
+                                     16 	.globl _delay_ms
+                                     17 	.globl _TF2
+                                     18 	.globl _EXF2
+                                     19 	.globl _RCLK
+                                     20 	.globl _TCLK
+                                     21 	.globl _EXEN2
+                                     22 	.globl _TR2
+                                     23 	.globl _C_T2
+                                     24 	.globl _CP_RL2
+                                     25 	.globl _T2CON_7
+                                     26 	.globl _T2CON_6
+                                     27 	.globl _T2CON_5
+                                     28 	.globl _T2CON_4
+                                     29 	.globl _T2CON_3
+                                     30 	.globl _T2CON_2
+                                     31 	.globl _T2CON_1
+                                     32 	.globl _T2CON_0
+                                     33 	.globl _PT2
+                                     34 	.globl _ET2
+                                     35 	.globl _CY
+                                     36 	.globl _AC
+                                     37 	.globl _F0
+                                     38 	.globl _RS1
+                                     39 	.globl _RS0
+                                     40 	.globl _OV
+                                     41 	.globl _F1
+                                     42 	.globl _P
+                                     43 	.globl _PS
+                                     44 	.globl _PT1
+                                     45 	.globl _PX1
+                                     46 	.globl _PT0
+                                     47 	.globl _PX0
+                                     48 	.globl _RD
+                                     49 	.globl _WR
+                                     50 	.globl _T1
+                                     51 	.globl _T0
+                                     52 	.globl _INT1
+                                     53 	.globl _INT0
+                                     54 	.globl _TXD
+                                     55 	.globl _RXD
+                                     56 	.globl _P3_7
+                                     57 	.globl _P3_6
+                                     58 	.globl _P3_5
+                                     59 	.globl _P3_4
+                                     60 	.globl _P3_3
+                                     61 	.globl _P3_2
+                                     62 	.globl _P3_1
+                                     63 	.globl _P3_0
+                                     64 	.globl _EA
+                                     65 	.globl _ES
+                                     66 	.globl _ET1
+                                     67 	.globl _EX1
+                                     68 	.globl _ET0
+                                     69 	.globl _EX0
+                                     70 	.globl _P2_7
+                                     71 	.globl _P2_6
+                                     72 	.globl _P2_5
+                                     73 	.globl _P2_4
+                                     74 	.globl _P2_3
+                                     75 	.globl _P2_2
+                                     76 	.globl _P2_1
+                                     77 	.globl _P2_0
+                                     78 	.globl _SM0
+                                     79 	.globl _SM1
+                                     80 	.globl _SM2
+                                     81 	.globl _REN
+                                     82 	.globl _TB8
+                                     83 	.globl _RB8
+                                     84 	.globl _TI
+                                     85 	.globl _RI
+                                     86 	.globl _P1_7
+                                     87 	.globl _P1_6
+                                     88 	.globl _P1_5
+                                     89 	.globl _P1_4
+                                     90 	.globl _P1_3
+                                     91 	.globl _P1_2
+                                     92 	.globl _P1_1
+                                     93 	.globl _P1_0
+                                     94 	.globl _TF1
+                                     95 	.globl _TR1
+                                     96 	.globl _TF0
+                                     97 	.globl _TR0
+                                     98 	.globl _IE1
+                                     99 	.globl _IT1
+                                    100 	.globl _IE0
+                                    101 	.globl _IT0
+                                    102 	.globl _P0_7
+                                    103 	.globl _P0_6
+                                    104 	.globl _P0_5
+                                    105 	.globl _P0_4
+                                    106 	.globl _P0_3
+                                    107 	.globl _P0_2
+                                    108 	.globl _P0_1
+                                    109 	.globl _P0_0
+                                    110 	.globl _TH2
+                                    111 	.globl _TL2
+                                    112 	.globl _RCAP2H
+                                    113 	.globl _RCAP2L
+                                    114 	.globl _T2CON
+                                    115 	.globl _B
+                                    116 	.globl _ACC
+                                    117 	.globl _PSW
+                                    118 	.globl _IP
+                                    119 	.globl _P3
+                                    120 	.globl _IE
+                                    121 	.globl _P2
+                                    122 	.globl _SBUF
+                                    123 	.globl _SCON
+                                    124 	.globl _P1
+                                    125 	.globl _TH1
+                                    126 	.globl _TH0
+                                    127 	.globl _TL1
+                                    128 	.globl _TL0
+                                    129 	.globl _TMOD
+                                    130 	.globl _TCON
+                                    131 	.globl _PCON
+                                    132 	.globl _DPH
+                                    133 	.globl _DPL
+                                    134 	.globl _SP
+                                    135 	.globl _P0
+                                    136 	.globl _at24c02_write_one_byte_PARM_2
+                                    137 	.globl _at24c02_write_one_byte
+                                    138 	.globl _at24c02_read_byte
+                                    139 ;--------------------------------------------------------
+                                    140 ; special function registers
+                                    141 ;--------------------------------------------------------
+                                    142 	.area RSEG    (ABS,DATA)
+      000000                        143 	.org 0x0000
+                           000080   144 _P0	=	0x0080
+                           000081   145 _SP	=	0x0081
+                           000082   146 _DPL	=	0x0082
+                           000083   147 _DPH	=	0x0083
+                           000087   148 _PCON	=	0x0087
+                           000088   149 _TCON	=	0x0088
+                           000089   150 _TMOD	=	0x0089
+                           00008A   151 _TL0	=	0x008a
+                           00008B   152 _TL1	=	0x008b
+                           00008C   153 _TH0	=	0x008c
+                           00008D   154 _TH1	=	0x008d
+                           000090   155 _P1	=	0x0090
+                           000098   156 _SCON	=	0x0098
+                           000099   157 _SBUF	=	0x0099
+                           0000A0   158 _P2	=	0x00a0
+                           0000A8   159 _IE	=	0x00a8
+                           0000B0   160 _P3	=	0x00b0
+                           0000B8   161 _IP	=	0x00b8
+                           0000D0   162 _PSW	=	0x00d0
+                           0000E0   163 _ACC	=	0x00e0
+                           0000F0   164 _B	=	0x00f0
+                           0000C8   165 _T2CON	=	0x00c8
+                           0000CA   166 _RCAP2L	=	0x00ca
+                           0000CB   167 _RCAP2H	=	0x00cb
+                           0000CC   168 _TL2	=	0x00cc
+                           0000CD   169 _TH2	=	0x00cd
+                                    170 ;--------------------------------------------------------
+                                    171 ; special function bits
+                                    172 ;--------------------------------------------------------
+                                    173 	.area RSEG    (ABS,DATA)
+      000000                        174 	.org 0x0000
+                           000080   175 _P0_0	=	0x0080
+                           000081   176 _P0_1	=	0x0081
+                           000082   177 _P0_2	=	0x0082
+                           000083   178 _P0_3	=	0x0083
+                           000084   179 _P0_4	=	0x0084
+                           000085   180 _P0_5	=	0x0085
+                           000086   181 _P0_6	=	0x0086
+                           000087   182 _P0_7	=	0x0087
+                           000088   183 _IT0	=	0x0088
+                           000089   184 _IE0	=	0x0089
+                           00008A   185 _IT1	=	0x008a
+                           00008B   186 _IE1	=	0x008b
+                           00008C   187 _TR0	=	0x008c
+                           00008D   188 _TF0	=	0x008d
+                           00008E   189 _TR1	=	0x008e
+                           00008F   190 _TF1	=	0x008f
+                           000090   191 _P1_0	=	0x0090
+                           000091   192 _P1_1	=	0x0091
+                           000092   193 _P1_2	=	0x0092
+                           000093   194 _P1_3	=	0x0093
+                           000094   195 _P1_4	=	0x0094
+                           000095   196 _P1_5	=	0x0095
+                           000096   197 _P1_6	=	0x0096
+                           000097   198 _P1_7	=	0x0097
+                           000098   199 _RI	=	0x0098
+                           000099   200 _TI	=	0x0099
+                           00009A   201 _RB8	=	0x009a
+                           00009B   202 _TB8	=	0x009b
+                           00009C   203 _REN	=	0x009c
+                           00009D   204 _SM2	=	0x009d
+                           00009E   205 _SM1	=	0x009e
+                           00009F   206 _SM0	=	0x009f
+                           0000A0   207 _P2_0	=	0x00a0
+                           0000A1   208 _P2_1	=	0x00a1
+                           0000A2   209 _P2_2	=	0x00a2
+                           0000A3   210 _P2_3	=	0x00a3
+                           0000A4   211 _P2_4	=	0x00a4
+                           0000A5   212 _P2_5	=	0x00a5
+                           0000A6   213 _P2_6	=	0x00a6
+                           0000A7   214 _P2_7	=	0x00a7
+                           0000A8   215 _EX0	=	0x00a8
+                           0000A9   216 _ET0	=	0x00a9
+                           0000AA   217 _EX1	=	0x00aa
+                           0000AB   218 _ET1	=	0x00ab
+                           0000AC   219 _ES	=	0x00ac
+                           0000AF   220 _EA	=	0x00af
+                           0000B0   221 _P3_0	=	0x00b0
+                           0000B1   222 _P3_1	=	0x00b1
+                           0000B2   223 _P3_2	=	0x00b2
+                           0000B3   224 _P3_3	=	0x00b3
+                           0000B4   225 _P3_4	=	0x00b4
+                           0000B5   226 _P3_5	=	0x00b5
+                           0000B6   227 _P3_6	=	0x00b6
+                           0000B7   228 _P3_7	=	0x00b7
+                           0000B0   229 _RXD	=	0x00b0
+                           0000B1   230 _TXD	=	0x00b1
+                           0000B2   231 _INT0	=	0x00b2
+                           0000B3   232 _INT1	=	0x00b3
+                           0000B4   233 _T0	=	0x00b4
+                           0000B5   234 _T1	=	0x00b5
+                           0000B6   235 _WR	=	0x00b6
+                           0000B7   236 _RD	=	0x00b7
+                           0000B8   237 _PX0	=	0x00b8
+                           0000B9   238 _PT0	=	0x00b9
+                           0000BA   239 _PX1	=	0x00ba
+                           0000BB   240 _PT1	=	0x00bb
+                           0000BC   241 _PS	=	0x00bc
+                           0000D0   242 _P	=	0x00d0
+                           0000D1   243 _F1	=	0x00d1
+                           0000D2   244 _OV	=	0x00d2
+                           0000D3   245 _RS0	=	0x00d3
+                           0000D4   246 _RS1	=	0x00d4
+                           0000D5   247 _F0	=	0x00d5
+                           0000D6   248 _AC	=	0x00d6
+                           0000D7   249 _CY	=	0x00d7
+                           0000AD   250 _ET2	=	0x00ad
+                           0000BD   251 _PT2	=	0x00bd
+                           0000C8   252 _T2CON_0	=	0x00c8
+                           0000C9   253 _T2CON_1	=	0x00c9
+                           0000CA   254 _T2CON_2	=	0x00ca
+                           0000CB   255 _T2CON_3	=	0x00cb
+                           0000CC   256 _T2CON_4	=	0x00cc
+                           0000CD   257 _T2CON_5	=	0x00cd
+                           0000CE   258 _T2CON_6	=	0x00ce
+                           0000CF   259 _T2CON_7	=	0x00cf
+                           0000C8   260 _CP_RL2	=	0x00c8
+                           0000C9   261 _C_T2	=	0x00c9
+                           0000CA   262 _TR2	=	0x00ca
+                           0000CB   263 _EXEN2	=	0x00cb
+                           0000CC   264 _TCLK	=	0x00cc
+                           0000CD   265 _RCLK	=	0x00cd
+                           0000CE   266 _EXF2	=	0x00ce
+                           0000CF   267 _TF2	=	0x00cf
+                                    268 ;--------------------------------------------------------
+                                    269 ; overlayable register banks
+                                    270 ;--------------------------------------------------------
+                                    271 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        272 	.ds 8
+                                    273 ;--------------------------------------------------------
+                                    274 ; internal ram data
+                                    275 ;--------------------------------------------------------
+                                    276 	.area DSEG    (DATA)
+      000000                        277 _at24c02_write_one_byte_PARM_2:
+      000000                        278 	.ds 1
+                                    279 ;--------------------------------------------------------
+                                    280 ; overlayable items in internal ram 
+                                    281 ;--------------------------------------------------------
+                                    282 ;--------------------------------------------------------
+                                    283 ; indirectly addressable internal ram data
+                                    284 ;--------------------------------------------------------
+                                    285 	.area ISEG    (DATA)
+                                    286 ;--------------------------------------------------------
+                                    287 ; absolute internal ram data
+                                    288 ;--------------------------------------------------------
+                                    289 	.area IABS    (ABS,DATA)
+                                    290 	.area IABS    (ABS,DATA)
+                                    291 ;--------------------------------------------------------
+                                    292 ; bit data
+                                    293 ;--------------------------------------------------------
+                                    294 	.area BSEG    (BIT)
+                                    295 ;--------------------------------------------------------
+                                    296 ; paged external ram data
+                                    297 ;--------------------------------------------------------
+                                    298 	.area PSEG    (PAG,XDATA)
+                                    299 ;--------------------------------------------------------
+                                    300 ; external ram data
+                                    301 ;--------------------------------------------------------
+                                    302 	.area XSEG    (XDATA)
+                                    303 ;--------------------------------------------------------
+                                    304 ; absolute external ram data
+                                    305 ;--------------------------------------------------------
+                                    306 	.area XABS    (ABS,XDATA)
+                                    307 ;--------------------------------------------------------
+                                    308 ; external initialized ram data
+                                    309 ;--------------------------------------------------------
+                                    310 	.area XISEG   (XDATA)
+                                    311 	.area HOME    (CODE)
+                                    312 	.area GSINIT0 (CODE)
+                                    313 	.area GSINIT1 (CODE)
+                                    314 	.area GSINIT2 (CODE)
+                                    315 	.area GSINIT3 (CODE)
+                                    316 	.area GSINIT4 (CODE)
+                                    317 	.area GSINIT5 (CODE)
+                                    318 	.area GSINIT  (CODE)
+                                    319 	.area GSFINAL (CODE)
+                                    320 	.area CSEG    (CODE)
+                                    321 ;--------------------------------------------------------
+                                    322 ; global & static initialisations
+                                    323 ;--------------------------------------------------------
+                                    324 	.area HOME    (CODE)
+                                    325 	.area GSINIT  (CODE)
+                                    326 	.area GSFINAL (CODE)
+                                    327 	.area GSINIT  (CODE)
+                                    328 ;--------------------------------------------------------
+                                    329 ; Home
+                                    330 ;--------------------------------------------------------
+                                    331 	.area HOME    (CODE)
+                                    332 	.area HOME    (CODE)
+                                    333 ;--------------------------------------------------------
+                                    334 ; code
+                                    335 ;--------------------------------------------------------
+                                    336 	.area CSEG    (CODE)
+                                    337 ;------------------------------------------------------------
+                                    338 ;Allocation info for local variables in function 'at24c02_write_one_byte'
+                                    339 ;------------------------------------------------------------
+                                    340 ;dat                       Allocated with name '_at24c02_write_one_byte_PARM_2'
+                                    341 ;addr                      Allocated to registers r7 
+                                    342 ;------------------------------------------------------------
+                                    343 ;	at24c02.c:3: void at24c02_write_one_byte(u8 addr, u8 dat){
+                                    344 ;	-----------------------------------------
+                                    345 ;	 function at24c02_write_one_byte
+                                    346 ;	-----------------------------------------
+      000000                        347 _at24c02_write_one_byte:
+                           000007   348 	ar7 = 0x07
+                           000006   349 	ar6 = 0x06
+                           000005   350 	ar5 = 0x05
+                           000004   351 	ar4 = 0x04
+                           000003   352 	ar3 = 0x03
+                           000002   353 	ar2 = 0x02
+                           000001   354 	ar1 = 0x01
+                           000000   355 	ar0 = 0x00
+      000000 AF 82            [24]  356 	mov	r7,dpl
+                                    357 ;	at24c02.c:4: iic_start();
+      000002 C0 07            [24]  358 	push	ar7
+      000004 12r00r00         [24]  359 	lcall	_iic_start
+                                    360 ;	at24c02.c:5: iic_write_byte(0xA0);
+      000007 75 82 A0         [24]  361 	mov	dpl,#0xa0
+      00000A 12r00r00         [24]  362 	lcall	_iic_write_byte
+                                    363 ;	at24c02.c:6: iic_wait_ack();
+      00000D 12r00r00         [24]  364 	lcall	_iic_wait_ack
+      000010 D0 07            [24]  365 	pop	ar7
+                                    366 ;	at24c02.c:7: iic_write_byte(addr);
+      000012 8F 82            [24]  367 	mov	dpl,r7
+      000014 12r00r00         [24]  368 	lcall	_iic_write_byte
+                                    369 ;	at24c02.c:8: iic_wait_ack();
+      000017 12r00r00         [24]  370 	lcall	_iic_wait_ack
+                                    371 ;	at24c02.c:9: iic_write_byte(dat);
+      00001A 85*00 82         [24]  372 	mov	dpl,_at24c02_write_one_byte_PARM_2
+      00001D 12r00r00         [24]  373 	lcall	_iic_write_byte
+                                    374 ;	at24c02.c:10: iic_wait_ack();
+      000020 12r00r00         [24]  375 	lcall	_iic_wait_ack
+                                    376 ;	at24c02.c:11: iic_stop();
+      000023 12r00r00         [24]  377 	lcall	_iic_stop
+                                    378 ;	at24c02.c:12: delay_ms(10);
+      000026 90 00 0A         [24]  379 	mov	dptr,#0x000a
+                                    380 ;	at24c02.c:13: }
+      000029 02r00r00         [24]  381 	ljmp	_delay_ms
+                                    382 ;------------------------------------------------------------
+                                    383 ;Allocation info for local variables in function 'at24c02_read_byte'
+                                    384 ;------------------------------------------------------------
+                                    385 ;addr                      Allocated to registers r7 
+                                    386 ;temp                      Allocated to registers r7 
+                                    387 ;------------------------------------------------------------
+                                    388 ;	at24c02.c:15: u8 at24c02_read_byte(u8 addr){
+                                    389 ;	-----------------------------------------
+                                    390 ;	 function at24c02_read_byte
+                                    391 ;	-----------------------------------------
+      00002C                        392 _at24c02_read_byte:
+      00002C AF 82            [24]  393 	mov	r7,dpl
+                                    394 ;	at24c02.c:17: iic_start();
+      00002E C0 07            [24]  395 	push	ar7
+      000030 12r00r00         [24]  396 	lcall	_iic_start
+                                    397 ;	at24c02.c:18: iic_write_byte(0xA0);
+      000033 75 82 A0         [24]  398 	mov	dpl,#0xa0
+      000036 12r00r00         [24]  399 	lcall	_iic_write_byte
+                                    400 ;	at24c02.c:19: iic_wait_ack();
+      000039 12r00r00         [24]  401 	lcall	_iic_wait_ack
+      00003C D0 07            [24]  402 	pop	ar7
+                                    403 ;	at24c02.c:20: iic_write_byte(addr);
+      00003E 8F 82            [24]  404 	mov	dpl,r7
+      000040 12r00r00         [24]  405 	lcall	_iic_write_byte
+                                    406 ;	at24c02.c:21: iic_wait_ack();
+      000043 12r00r00         [24]  407 	lcall	_iic_wait_ack
+                                    408 ;	at24c02.c:22: iic_start();
+      000046 12r00r00         [24]  409 	lcall	_iic_start
+                                    410 ;	at24c02.c:23: iic_write_byte(0xA1);
+      000049 75 82 A1         [24]  411 	mov	dpl,#0xa1
+      00004C 12r00r00         [24]  412 	lcall	_iic_write_byte
+                                    413 ;	at24c02.c:24: iic_wait_ack();
+      00004F 12r00r00         [24]  414 	lcall	_iic_wait_ack
+                                    415 ;	at24c02.c:25: temp = iic_read_byte(0);
+      000052 75 82 00         [24]  416 	mov	dpl,#0x00
+      000055 12r00r00         [24]  417 	lcall	_iic_read_byte
+      000058 AF 82            [24]  418 	mov	r7,dpl
+                                    419 ;	at24c02.c:26: iic_stop();
+      00005A C0 07            [24]  420 	push	ar7
+      00005C 12r00r00         [24]  421 	lcall	_iic_stop
+      00005F D0 07            [24]  422 	pop	ar7
+                                    423 ;	at24c02.c:27: return temp; 
+      000061 8F 82            [24]  424 	mov	dpl,r7
+                                    425 ;	at24c02.c:28: }
+      000063 22               [24]  426 	ret
+                                    427 	.area CSEG    (CODE)
+                                    428 	.area CONST   (CODE)
+                                    429 	.area XINIT   (CODE)
+                                    430 	.area CABS    (ABS,CODE)

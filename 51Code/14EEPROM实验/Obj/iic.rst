@@ -1,0 +1,623 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 3.8.0 #10562 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module iic
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _delay_10us
+                                     12 	.globl _TF2
+                                     13 	.globl _EXF2
+                                     14 	.globl _RCLK
+                                     15 	.globl _TCLK
+                                     16 	.globl _EXEN2
+                                     17 	.globl _TR2
+                                     18 	.globl _C_T2
+                                     19 	.globl _CP_RL2
+                                     20 	.globl _T2CON_7
+                                     21 	.globl _T2CON_6
+                                     22 	.globl _T2CON_5
+                                     23 	.globl _T2CON_4
+                                     24 	.globl _T2CON_3
+                                     25 	.globl _T2CON_2
+                                     26 	.globl _T2CON_1
+                                     27 	.globl _T2CON_0
+                                     28 	.globl _PT2
+                                     29 	.globl _ET2
+                                     30 	.globl _CY
+                                     31 	.globl _AC
+                                     32 	.globl _F0
+                                     33 	.globl _RS1
+                                     34 	.globl _RS0
+                                     35 	.globl _OV
+                                     36 	.globl _F1
+                                     37 	.globl _P
+                                     38 	.globl _PS
+                                     39 	.globl _PT1
+                                     40 	.globl _PX1
+                                     41 	.globl _PT0
+                                     42 	.globl _PX0
+                                     43 	.globl _RD
+                                     44 	.globl _WR
+                                     45 	.globl _T1
+                                     46 	.globl _T0
+                                     47 	.globl _INT1
+                                     48 	.globl _INT0
+                                     49 	.globl _TXD
+                                     50 	.globl _RXD
+                                     51 	.globl _P3_7
+                                     52 	.globl _P3_6
+                                     53 	.globl _P3_5
+                                     54 	.globl _P3_4
+                                     55 	.globl _P3_3
+                                     56 	.globl _P3_2
+                                     57 	.globl _P3_1
+                                     58 	.globl _P3_0
+                                     59 	.globl _EA
+                                     60 	.globl _ES
+                                     61 	.globl _ET1
+                                     62 	.globl _EX1
+                                     63 	.globl _ET0
+                                     64 	.globl _EX0
+                                     65 	.globl _P2_7
+                                     66 	.globl _P2_6
+                                     67 	.globl _P2_5
+                                     68 	.globl _P2_4
+                                     69 	.globl _P2_3
+                                     70 	.globl _P2_2
+                                     71 	.globl _P2_1
+                                     72 	.globl _P2_0
+                                     73 	.globl _SM0
+                                     74 	.globl _SM1
+                                     75 	.globl _SM2
+                                     76 	.globl _REN
+                                     77 	.globl _TB8
+                                     78 	.globl _RB8
+                                     79 	.globl _TI
+                                     80 	.globl _RI
+                                     81 	.globl _P1_7
+                                     82 	.globl _P1_6
+                                     83 	.globl _P1_5
+                                     84 	.globl _P1_4
+                                     85 	.globl _P1_3
+                                     86 	.globl _P1_2
+                                     87 	.globl _P1_1
+                                     88 	.globl _P1_0
+                                     89 	.globl _TF1
+                                     90 	.globl _TR1
+                                     91 	.globl _TF0
+                                     92 	.globl _TR0
+                                     93 	.globl _IE1
+                                     94 	.globl _IT1
+                                     95 	.globl _IE0
+                                     96 	.globl _IT0
+                                     97 	.globl _P0_7
+                                     98 	.globl _P0_6
+                                     99 	.globl _P0_5
+                                    100 	.globl _P0_4
+                                    101 	.globl _P0_3
+                                    102 	.globl _P0_2
+                                    103 	.globl _P0_1
+                                    104 	.globl _P0_0
+                                    105 	.globl _TH2
+                                    106 	.globl _TL2
+                                    107 	.globl _RCAP2H
+                                    108 	.globl _RCAP2L
+                                    109 	.globl _T2CON
+                                    110 	.globl _B
+                                    111 	.globl _ACC
+                                    112 	.globl _PSW
+                                    113 	.globl _IP
+                                    114 	.globl _P3
+                                    115 	.globl _IE
+                                    116 	.globl _P2
+                                    117 	.globl _SBUF
+                                    118 	.globl _SCON
+                                    119 	.globl _P1
+                                    120 	.globl _TH1
+                                    121 	.globl _TH0
+                                    122 	.globl _TL1
+                                    123 	.globl _TL0
+                                    124 	.globl _TMOD
+                                    125 	.globl _TCON
+                                    126 	.globl _PCON
+                                    127 	.globl _DPH
+                                    128 	.globl _DPL
+                                    129 	.globl _SP
+                                    130 	.globl _P0
+                                    131 	.globl _iic_start
+                                    132 	.globl _iic_stop
+                                    133 	.globl _iic_ack
+                                    134 	.globl _iic_nack
+                                    135 	.globl _iic_wait_ack
+                                    136 	.globl _iic_write_byte
+                                    137 	.globl _iic_read_byte
+                                    138 ;--------------------------------------------------------
+                                    139 ; special function registers
+                                    140 ;--------------------------------------------------------
+                                    141 	.area RSEG    (ABS,DATA)
+      000000                        142 	.org 0x0000
+                           000080   143 _P0	=	0x0080
+                           000081   144 _SP	=	0x0081
+                           000082   145 _DPL	=	0x0082
+                           000083   146 _DPH	=	0x0083
+                           000087   147 _PCON	=	0x0087
+                           000088   148 _TCON	=	0x0088
+                           000089   149 _TMOD	=	0x0089
+                           00008A   150 _TL0	=	0x008a
+                           00008B   151 _TL1	=	0x008b
+                           00008C   152 _TH0	=	0x008c
+                           00008D   153 _TH1	=	0x008d
+                           000090   154 _P1	=	0x0090
+                           000098   155 _SCON	=	0x0098
+                           000099   156 _SBUF	=	0x0099
+                           0000A0   157 _P2	=	0x00a0
+                           0000A8   158 _IE	=	0x00a8
+                           0000B0   159 _P3	=	0x00b0
+                           0000B8   160 _IP	=	0x00b8
+                           0000D0   161 _PSW	=	0x00d0
+                           0000E0   162 _ACC	=	0x00e0
+                           0000F0   163 _B	=	0x00f0
+                           0000C8   164 _T2CON	=	0x00c8
+                           0000CA   165 _RCAP2L	=	0x00ca
+                           0000CB   166 _RCAP2H	=	0x00cb
+                           0000CC   167 _TL2	=	0x00cc
+                           0000CD   168 _TH2	=	0x00cd
+                                    169 ;--------------------------------------------------------
+                                    170 ; special function bits
+                                    171 ;--------------------------------------------------------
+                                    172 	.area RSEG    (ABS,DATA)
+      000000                        173 	.org 0x0000
+                           000080   174 _P0_0	=	0x0080
+                           000081   175 _P0_1	=	0x0081
+                           000082   176 _P0_2	=	0x0082
+                           000083   177 _P0_3	=	0x0083
+                           000084   178 _P0_4	=	0x0084
+                           000085   179 _P0_5	=	0x0085
+                           000086   180 _P0_6	=	0x0086
+                           000087   181 _P0_7	=	0x0087
+                           000088   182 _IT0	=	0x0088
+                           000089   183 _IE0	=	0x0089
+                           00008A   184 _IT1	=	0x008a
+                           00008B   185 _IE1	=	0x008b
+                           00008C   186 _TR0	=	0x008c
+                           00008D   187 _TF0	=	0x008d
+                           00008E   188 _TR1	=	0x008e
+                           00008F   189 _TF1	=	0x008f
+                           000090   190 _P1_0	=	0x0090
+                           000091   191 _P1_1	=	0x0091
+                           000092   192 _P1_2	=	0x0092
+                           000093   193 _P1_3	=	0x0093
+                           000094   194 _P1_4	=	0x0094
+                           000095   195 _P1_5	=	0x0095
+                           000096   196 _P1_6	=	0x0096
+                           000097   197 _P1_7	=	0x0097
+                           000098   198 _RI	=	0x0098
+                           000099   199 _TI	=	0x0099
+                           00009A   200 _RB8	=	0x009a
+                           00009B   201 _TB8	=	0x009b
+                           00009C   202 _REN	=	0x009c
+                           00009D   203 _SM2	=	0x009d
+                           00009E   204 _SM1	=	0x009e
+                           00009F   205 _SM0	=	0x009f
+                           0000A0   206 _P2_0	=	0x00a0
+                           0000A1   207 _P2_1	=	0x00a1
+                           0000A2   208 _P2_2	=	0x00a2
+                           0000A3   209 _P2_3	=	0x00a3
+                           0000A4   210 _P2_4	=	0x00a4
+                           0000A5   211 _P2_5	=	0x00a5
+                           0000A6   212 _P2_6	=	0x00a6
+                           0000A7   213 _P2_7	=	0x00a7
+                           0000A8   214 _EX0	=	0x00a8
+                           0000A9   215 _ET0	=	0x00a9
+                           0000AA   216 _EX1	=	0x00aa
+                           0000AB   217 _ET1	=	0x00ab
+                           0000AC   218 _ES	=	0x00ac
+                           0000AF   219 _EA	=	0x00af
+                           0000B0   220 _P3_0	=	0x00b0
+                           0000B1   221 _P3_1	=	0x00b1
+                           0000B2   222 _P3_2	=	0x00b2
+                           0000B3   223 _P3_3	=	0x00b3
+                           0000B4   224 _P3_4	=	0x00b4
+                           0000B5   225 _P3_5	=	0x00b5
+                           0000B6   226 _P3_6	=	0x00b6
+                           0000B7   227 _P3_7	=	0x00b7
+                           0000B0   228 _RXD	=	0x00b0
+                           0000B1   229 _TXD	=	0x00b1
+                           0000B2   230 _INT0	=	0x00b2
+                           0000B3   231 _INT1	=	0x00b3
+                           0000B4   232 _T0	=	0x00b4
+                           0000B5   233 _T1	=	0x00b5
+                           0000B6   234 _WR	=	0x00b6
+                           0000B7   235 _RD	=	0x00b7
+                           0000B8   236 _PX0	=	0x00b8
+                           0000B9   237 _PT0	=	0x00b9
+                           0000BA   238 _PX1	=	0x00ba
+                           0000BB   239 _PT1	=	0x00bb
+                           0000BC   240 _PS	=	0x00bc
+                           0000D0   241 _P	=	0x00d0
+                           0000D1   242 _F1	=	0x00d1
+                           0000D2   243 _OV	=	0x00d2
+                           0000D3   244 _RS0	=	0x00d3
+                           0000D4   245 _RS1	=	0x00d4
+                           0000D5   246 _F0	=	0x00d5
+                           0000D6   247 _AC	=	0x00d6
+                           0000D7   248 _CY	=	0x00d7
+                           0000AD   249 _ET2	=	0x00ad
+                           0000BD   250 _PT2	=	0x00bd
+                           0000C8   251 _T2CON_0	=	0x00c8
+                           0000C9   252 _T2CON_1	=	0x00c9
+                           0000CA   253 _T2CON_2	=	0x00ca
+                           0000CB   254 _T2CON_3	=	0x00cb
+                           0000CC   255 _T2CON_4	=	0x00cc
+                           0000CD   256 _T2CON_5	=	0x00cd
+                           0000CE   257 _T2CON_6	=	0x00ce
+                           0000CF   258 _T2CON_7	=	0x00cf
+                           0000C8   259 _CP_RL2	=	0x00c8
+                           0000C9   260 _C_T2	=	0x00c9
+                           0000CA   261 _TR2	=	0x00ca
+                           0000CB   262 _EXEN2	=	0x00cb
+                           0000CC   263 _TCLK	=	0x00cc
+                           0000CD   264 _RCLK	=	0x00cd
+                           0000CE   265 _EXF2	=	0x00ce
+                           0000CF   266 _TF2	=	0x00cf
+                                    267 ;--------------------------------------------------------
+                                    268 ; overlayable register banks
+                                    269 ;--------------------------------------------------------
+                                    270 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        271 	.ds 8
+                                    272 ;--------------------------------------------------------
+                                    273 ; internal ram data
+                                    274 ;--------------------------------------------------------
+                                    275 	.area DSEG    (DATA)
+                                    276 ;--------------------------------------------------------
+                                    277 ; overlayable items in internal ram 
+                                    278 ;--------------------------------------------------------
+                                    279 ;--------------------------------------------------------
+                                    280 ; indirectly addressable internal ram data
+                                    281 ;--------------------------------------------------------
+                                    282 	.area ISEG    (DATA)
+                                    283 ;--------------------------------------------------------
+                                    284 ; absolute internal ram data
+                                    285 ;--------------------------------------------------------
+                                    286 	.area IABS    (ABS,DATA)
+                                    287 	.area IABS    (ABS,DATA)
+                                    288 ;--------------------------------------------------------
+                                    289 ; bit data
+                                    290 ;--------------------------------------------------------
+                                    291 	.area BSEG    (BIT)
+                                    292 ;--------------------------------------------------------
+                                    293 ; paged external ram data
+                                    294 ;--------------------------------------------------------
+                                    295 	.area PSEG    (PAG,XDATA)
+                                    296 ;--------------------------------------------------------
+                                    297 ; external ram data
+                                    298 ;--------------------------------------------------------
+                                    299 	.area XSEG    (XDATA)
+                                    300 ;--------------------------------------------------------
+                                    301 ; absolute external ram data
+                                    302 ;--------------------------------------------------------
+                                    303 	.area XABS    (ABS,XDATA)
+                                    304 ;--------------------------------------------------------
+                                    305 ; external initialized ram data
+                                    306 ;--------------------------------------------------------
+                                    307 	.area XISEG   (XDATA)
+                                    308 	.area HOME    (CODE)
+                                    309 	.area GSINIT0 (CODE)
+                                    310 	.area GSINIT1 (CODE)
+                                    311 	.area GSINIT2 (CODE)
+                                    312 	.area GSINIT3 (CODE)
+                                    313 	.area GSINIT4 (CODE)
+                                    314 	.area GSINIT5 (CODE)
+                                    315 	.area GSINIT  (CODE)
+                                    316 	.area GSFINAL (CODE)
+                                    317 	.area CSEG    (CODE)
+                                    318 ;--------------------------------------------------------
+                                    319 ; global & static initialisations
+                                    320 ;--------------------------------------------------------
+                                    321 	.area HOME    (CODE)
+                                    322 	.area GSINIT  (CODE)
+                                    323 	.area GSFINAL (CODE)
+                                    324 	.area GSINIT  (CODE)
+                                    325 ;--------------------------------------------------------
+                                    326 ; Home
+                                    327 ;--------------------------------------------------------
+                                    328 	.area HOME    (CODE)
+                                    329 	.area HOME    (CODE)
+                                    330 ;--------------------------------------------------------
+                                    331 ; code
+                                    332 ;--------------------------------------------------------
+                                    333 	.area CSEG    (CODE)
+                                    334 ;------------------------------------------------------------
+                                    335 ;Allocation info for local variables in function 'iic_start'
+                                    336 ;------------------------------------------------------------
+                                    337 ;	iic.c:3: void iic_start(void)
+                                    338 ;	-----------------------------------------
+                                    339 ;	 function iic_start
+                                    340 ;	-----------------------------------------
+      0002F0                        341 _iic_start:
+                           000007   342 	ar7 = 0x07
+                           000006   343 	ar6 = 0x06
+                           000005   344 	ar5 = 0x05
+                           000004   345 	ar4 = 0x04
+                           000003   346 	ar3 = 0x03
+                           000002   347 	ar2 = 0x02
+                           000001   348 	ar1 = 0x01
+                           000000   349 	ar0 = 0x00
+                                    350 ;	iic.c:5: IIC_SCL = 1;
+                                    351 ;	assignBit
+      0002F0 D2 A1            [12]  352 	setb	_P2_1
+                                    353 ;	iic.c:6: IIC_SDA = 1;
+                                    354 ;	assignBit
+      0002F2 D2 A0            [12]  355 	setb	_P2_0
+                                    356 ;	iic.c:7: delay_10us(1);
+      0002F4 90 00 01         [24]  357 	mov	dptr,#0x0001
+      0002F7 12 02 DE         [24]  358 	lcall	_delay_10us
+                                    359 ;	iic.c:8: IIC_SDA = 0;
+                                    360 ;	assignBit
+      0002FA C2 A0            [12]  361 	clr	_P2_0
+                                    362 ;	iic.c:9: delay_10us(1);
+      0002FC 90 00 01         [24]  363 	mov	dptr,#0x0001
+      0002FF 12 02 DE         [24]  364 	lcall	_delay_10us
+                                    365 ;	iic.c:10: IIC_SCL = 0;
+                                    366 ;	assignBit
+      000302 C2 A1            [12]  367 	clr	_P2_1
+                                    368 ;	iic.c:11: }
+      000304 22               [24]  369 	ret
+                                    370 ;------------------------------------------------------------
+                                    371 ;Allocation info for local variables in function 'iic_stop'
+                                    372 ;------------------------------------------------------------
+                                    373 ;	iic.c:13: void iic_stop(void)
+                                    374 ;	-----------------------------------------
+                                    375 ;	 function iic_stop
+                                    376 ;	-----------------------------------------
+      000305                        377 _iic_stop:
+                                    378 ;	iic.c:15: IIC_SCL = 1;
+                                    379 ;	assignBit
+      000305 D2 A1            [12]  380 	setb	_P2_1
+                                    381 ;	iic.c:16: IIC_SDA = 0;
+                                    382 ;	assignBit
+      000307 C2 A0            [12]  383 	clr	_P2_0
+                                    384 ;	iic.c:17: delay_10us(1);
+      000309 90 00 01         [24]  385 	mov	dptr,#0x0001
+      00030C 12 02 DE         [24]  386 	lcall	_delay_10us
+                                    387 ;	iic.c:18: IIC_SDA = 1;
+                                    388 ;	assignBit
+      00030F D2 A0            [12]  389 	setb	_P2_0
+                                    390 ;	iic.c:19: delay_10us(1);
+      000311 90 00 01         [24]  391 	mov	dptr,#0x0001
+                                    392 ;	iic.c:20: }
+      000314 02 02 DE         [24]  393 	ljmp	_delay_10us
+                                    394 ;------------------------------------------------------------
+                                    395 ;Allocation info for local variables in function 'iic_ack'
+                                    396 ;------------------------------------------------------------
+                                    397 ;	iic.c:22: void iic_ack(void)
+                                    398 ;	-----------------------------------------
+                                    399 ;	 function iic_ack
+                                    400 ;	-----------------------------------------
+      000317                        401 _iic_ack:
+                                    402 ;	iic.c:24: IIC_SCL = 0;
+                                    403 ;	assignBit
+      000317 C2 A1            [12]  404 	clr	_P2_1
+                                    405 ;	iic.c:25: IIC_SDA = 0;
+                                    406 ;	assignBit
+      000319 C2 A0            [12]  407 	clr	_P2_0
+                                    408 ;	iic.c:26: delay_10us(1);
+      00031B 90 00 01         [24]  409 	mov	dptr,#0x0001
+      00031E 12 02 DE         [24]  410 	lcall	_delay_10us
+                                    411 ;	iic.c:27: IIC_SCL = 1;
+                                    412 ;	assignBit
+      000321 D2 A1            [12]  413 	setb	_P2_1
+                                    414 ;	iic.c:28: delay_10us(1);
+      000323 90 00 01         [24]  415 	mov	dptr,#0x0001
+      000326 12 02 DE         [24]  416 	lcall	_delay_10us
+                                    417 ;	iic.c:29: IIC_SCL = 0;
+                                    418 ;	assignBit
+      000329 C2 A1            [12]  419 	clr	_P2_1
+                                    420 ;	iic.c:30: }
+      00032B 22               [24]  421 	ret
+                                    422 ;------------------------------------------------------------
+                                    423 ;Allocation info for local variables in function 'iic_nack'
+                                    424 ;------------------------------------------------------------
+                                    425 ;	iic.c:32: void iic_nack(void)
+                                    426 ;	-----------------------------------------
+                                    427 ;	 function iic_nack
+                                    428 ;	-----------------------------------------
+      00032C                        429 _iic_nack:
+                                    430 ;	iic.c:34: IIC_SCL = 0;
+                                    431 ;	assignBit
+      00032C C2 A1            [12]  432 	clr	_P2_1
+                                    433 ;	iic.c:35: IIC_SDA = 1;
+                                    434 ;	assignBit
+      00032E D2 A0            [12]  435 	setb	_P2_0
+                                    436 ;	iic.c:36: delay_10us(1);
+      000330 90 00 01         [24]  437 	mov	dptr,#0x0001
+      000333 12 02 DE         [24]  438 	lcall	_delay_10us
+                                    439 ;	iic.c:37: IIC_SCL = 1;
+                                    440 ;	assignBit
+      000336 D2 A1            [12]  441 	setb	_P2_1
+                                    442 ;	iic.c:38: delay_10us(1);
+      000338 90 00 01         [24]  443 	mov	dptr,#0x0001
+      00033B 12 02 DE         [24]  444 	lcall	_delay_10us
+                                    445 ;	iic.c:39: IIC_SCL = 0;
+                                    446 ;	assignBit
+      00033E C2 A1            [12]  447 	clr	_P2_1
+                                    448 ;	iic.c:40: }
+      000340 22               [24]  449 	ret
+                                    450 ;------------------------------------------------------------
+                                    451 ;Allocation info for local variables in function 'iic_wait_ack'
+                                    452 ;------------------------------------------------------------
+                                    453 ;time_temp                 Allocated to registers r7 
+                                    454 ;------------------------------------------------------------
+                                    455 ;	iic.c:42: u8 iic_wait_ack(void)
+                                    456 ;	-----------------------------------------
+                                    457 ;	 function iic_wait_ack
+                                    458 ;	-----------------------------------------
+      000341                        459 _iic_wait_ack:
+                                    460 ;	iic.c:45: IIC_SCL = 1;
+                                    461 ;	assignBit
+      000341 D2 A1            [12]  462 	setb	_P2_1
+                                    463 ;	iic.c:46: delay_10us(1);
+      000343 90 00 01         [24]  464 	mov	dptr,#0x0001
+      000346 12 02 DE         [24]  465 	lcall	_delay_10us
+                                    466 ;	iic.c:47: while (IIC_SDA)
+      000349 7F 00            [12]  467 	mov	r7,#0x00
+      00034B                        468 00103$:
+      00034B 30 A0 0D         [24]  469 	jnb	_P2_0,00105$
+                                    470 ;	iic.c:49: time_temp++;
+      00034E 0F               [12]  471 	inc	r7
+                                    472 ;	iic.c:50: if (time_temp > 100)
+      00034F EF               [12]  473 	mov	a,r7
+      000350 24 9B            [12]  474 	add	a,#0xff - 0x64
+      000352 50 F7            [24]  475 	jnc	00103$
+                                    476 ;	iic.c:52: iic_stop();
+      000354 12 03 05         [24]  477 	lcall	_iic_stop
+                                    478 ;	iic.c:53: return 1;
+      000357 75 82 01         [24]  479 	mov	dpl,#0x01
+      00035A 22               [24]  480 	ret
+      00035B                        481 00105$:
+                                    482 ;	iic.c:56: IIC_SCL = 0;
+                                    483 ;	assignBit
+      00035B C2 A1            [12]  484 	clr	_P2_1
+                                    485 ;	iic.c:57: return 0;
+      00035D 75 82 00         [24]  486 	mov	dpl,#0x00
+                                    487 ;	iic.c:58: }
+      000360 22               [24]  488 	ret
+                                    489 ;------------------------------------------------------------
+                                    490 ;Allocation info for local variables in function 'iic_write_byte'
+                                    491 ;------------------------------------------------------------
+                                    492 ;dat                       Allocated to registers r7 
+                                    493 ;i                         Allocated to registers r6 
+                                    494 ;------------------------------------------------------------
+                                    495 ;	iic.c:60: void iic_write_byte(u8 dat)
+                                    496 ;	-----------------------------------------
+                                    497 ;	 function iic_write_byte
+                                    498 ;	-----------------------------------------
+      000361                        499 _iic_write_byte:
+      000361 AF 82            [24]  500 	mov	r7,dpl
+                                    501 ;	iic.c:63: IIC_SCL = 0;
+                                    502 ;	assignBit
+      000363 C2 A1            [12]  503 	clr	_P2_1
+                                    504 ;	iic.c:64: for (i = 0; i < 8; i++)
+      000365 7E 00            [12]  505 	mov	r6,#0x00
+      000367                        506 00105$:
+                                    507 ;	iic.c:66: if((dat&0x80)>0){
+      000367 8F 04            [24]  508 	mov	ar4,r7
+      000369 53 04 80         [24]  509 	anl	ar4,#0x80
+      00036C 7D 00            [12]  510 	mov	r5,#0x00
+      00036E C3               [12]  511 	clr	c
+      00036F E4               [12]  512 	clr	a
+      000370 9C               [12]  513 	subb	a,r4
+      000371 74 80            [12]  514 	mov	a,#(0x00 ^ 0x80)
+      000373 8D F0            [24]  515 	mov	b,r5
+      000375 63 F0 80         [24]  516 	xrl	b,#0x80
+      000378 95 F0            [12]  517 	subb	a,b
+                                    518 ;	iic.c:67: IIC_SDA=1;
+                                    519 ;	assignBit
+                                    520 ;	iic.c:69: IIC_SDA=0;
+                                    521 ;	assignBit
+      00037A 92 A0            [24]  522 	mov	_P2_0,c
+                                    523 ;	iic.c:71: dat<<=1;
+      00037C 8F 05            [24]  524 	mov	ar5,r7
+      00037E ED               [12]  525 	mov	a,r5
+      00037F 2D               [12]  526 	add	a,r5
+      000380 FF               [12]  527 	mov	r7,a
+                                    528 ;	iic.c:72: IIC_SCL=1;
+                                    529 ;	assignBit
+      000381 D2 A1            [12]  530 	setb	_P2_1
+                                    531 ;	iic.c:73: delay_10us(1);
+      000383 90 00 01         [24]  532 	mov	dptr,#0x0001
+      000386 C0 07            [24]  533 	push	ar7
+      000388 C0 06            [24]  534 	push	ar6
+      00038A 12 02 DE         [24]  535 	lcall	_delay_10us
+                                    536 ;	iic.c:74: IIC_SCL=0;
+                                    537 ;	assignBit
+      00038D C2 A1            [12]  538 	clr	_P2_1
+                                    539 ;	iic.c:75: delay_10us(1);
+      00038F 90 00 01         [24]  540 	mov	dptr,#0x0001
+      000392 12 02 DE         [24]  541 	lcall	_delay_10us
+      000395 D0 06            [24]  542 	pop	ar6
+      000397 D0 07            [24]  543 	pop	ar7
+                                    544 ;	iic.c:64: for (i = 0; i < 8; i++)
+      000399 0E               [12]  545 	inc	r6
+      00039A BE 08 00         [24]  546 	cjne	r6,#0x08,00119$
+      00039D                        547 00119$:
+      00039D 40 C8            [24]  548 	jc	00105$
+                                    549 ;	iic.c:77: }
+      00039F 22               [24]  550 	ret
+                                    551 ;------------------------------------------------------------
+                                    552 ;Allocation info for local variables in function 'iic_read_byte'
+                                    553 ;------------------------------------------------------------
+                                    554 ;ack                       Allocated to registers r7 
+                                    555 ;i                         Allocated to registers r5 
+                                    556 ;receive                   Allocated to registers r6 
+                                    557 ;------------------------------------------------------------
+                                    558 ;	iic.c:78: u8 iic_read_byte(u8 ack){
+                                    559 ;	-----------------------------------------
+                                    560 ;	 function iic_read_byte
+                                    561 ;	-----------------------------------------
+      0003A0                        562 _iic_read_byte:
+      0003A0 AF 82            [24]  563 	mov	r7,dpl
+                                    564 ;	iic.c:80: u8 receive=0;
+      0003A2 7E 00            [12]  565 	mov	r6,#0x00
+                                    566 ;	iic.c:81: for(i=0; i<8; i++){
+      0003A4 7D 00            [12]  567 	mov	r5,#0x00
+      0003A6                        568 00107$:
+                                    569 ;	iic.c:82: IIC_SCL=0;
+                                    570 ;	assignBit
+      0003A6 C2 A1            [12]  571 	clr	_P2_1
+                                    572 ;	iic.c:83: delay_10us(1);
+      0003A8 90 00 01         [24]  573 	mov	dptr,#0x0001
+      0003AB C0 07            [24]  574 	push	ar7
+      0003AD C0 06            [24]  575 	push	ar6
+      0003AF C0 05            [24]  576 	push	ar5
+      0003B1 12 02 DE         [24]  577 	lcall	_delay_10us
+                                    578 ;	iic.c:84: IIC_SCL=1;
+                                    579 ;	assignBit
+      0003B4 D2 A1            [12]  580 	setb	_P2_1
+                                    581 ;	iic.c:85: delay_10us(1);
+      0003B6 90 00 01         [24]  582 	mov	dptr,#0x0001
+      0003B9 12 02 DE         [24]  583 	lcall	_delay_10us
+      0003BC D0 05            [24]  584 	pop	ar5
+      0003BE D0 06            [24]  585 	pop	ar6
+      0003C0 D0 07            [24]  586 	pop	ar7
+                                    587 ;	iic.c:86: receive<<=1;
+      0003C2 8E 04            [24]  588 	mov	ar4,r6
+      0003C4 EC               [12]  589 	mov	a,r4
+      0003C5 2C               [12]  590 	add	a,r4
+      0003C6 FE               [12]  591 	mov	r6,a
+                                    592 ;	iic.c:87: if(IIC_SDA){
+      0003C7 30 A0 01         [24]  593 	jnb	_P2_0,00108$
+                                    594 ;	iic.c:88: receive++;
+      0003CA 0E               [12]  595 	inc	r6
+      0003CB                        596 00108$:
+                                    597 ;	iic.c:81: for(i=0; i<8; i++){
+      0003CB 0D               [12]  598 	inc	r5
+      0003CC BD 08 00         [24]  599 	cjne	r5,#0x08,00129$
+      0003CF                        600 00129$:
+      0003CF 40 D5            [24]  601 	jc	00107$
+                                    602 ;	iic.c:91: if(!ack){
+      0003D1 EF               [12]  603 	mov	a,r7
+      0003D2 70 09            [24]  604 	jnz	00105$
+                                    605 ;	iic.c:92: iic_nack();
+      0003D4 C0 06            [24]  606 	push	ar6
+      0003D6 12 03 2C         [24]  607 	lcall	_iic_nack
+      0003D9 D0 06            [24]  608 	pop	ar6
+      0003DB 80 07            [24]  609 	sjmp	00106$
+      0003DD                        610 00105$:
+                                    611 ;	iic.c:94: iic_ack(); 
+      0003DD C0 06            [24]  612 	push	ar6
+      0003DF 12 03 17         [24]  613 	lcall	_iic_ack
+      0003E2 D0 06            [24]  614 	pop	ar6
+      0003E4                        615 00106$:
+                                    616 ;	iic.c:97: return receive;
+      0003E4 8E 82            [24]  617 	mov	dpl,r6
+                                    618 ;	iic.c:98: }
+      0003E6 22               [24]  619 	ret
+                                    620 	.area CSEG    (CODE)
+                                    621 	.area CONST   (CODE)
+                                    622 	.area XINIT   (CODE)
+                                    623 	.area CABS    (ABS,CODE)

@@ -1,5 +1,10 @@
 {
     "files.associations": {
-        "8052.h": "c"
+        "8052.h": "c",
+        "common.h": "c",
+        "key.h": "c",
+        "smg.h": "c",
+        "public.h": "c",
+        "iic.h": "c"
     }
 }

@@ -12,7 +12,6 @@ C:   00000000  l_BSEG
 C:   00000000  l_BSEG_BYTES                    
 C:   00000000  l_CABS                          
 C:   00000000  l_CONST                         
-C:   00000000  l_GSINIT                        
 C:   00000000  l_GSINIT1                       
 C:   00000000  l_GSINIT5                       
 C:   00000000  l_IABS                          
@@ -50,13 +49,14 @@ C:   00000006  l_HOME
 C:   00000006  s_GSINIT0                       
 C:   00000008  l_REG_BANK_0                    
 C:   00000008  s_REG_BANK_1                    
-C:   00000008  s_SSEG                          
 C:   00000009  s_GSINIT1                       
 C:   00000009  s_GSINIT2                       
 C:   0000000A  l_GSINIT2                       
 C:   00000010  s_REG_BANK_2                    
 C:   00000013  s_GSINIT3                       
 C:   00000018  s_BIT_BANK                      
+C:   00000018  s_OSEG                          
+C:   00000018  s_REG_BANK_3                    
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
@@ -66,23 +66,23 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000018  s_OSEG                          
-C:   00000018  s_REG_BANK_3                    
 C:   00000020  s_BSEG_BYTES                    
 C:   00000020  s__CODE                         
 C:   00000022  l_GSINIT3                       
+C:   00000023  s_SSEG                          
 C:   0000002A  l_GSINIT4                       
 C:   00000035  s_GSINIT4                       
-C:   00000044  l_CSEG                          
-C:   0000005F  s_GSFINAL                       
+C:   0000004E  l_GSINIT                        
 C:   0000005F  s_GSINIT                        
 C:   0000005F  s_GSINIT5                       
-C:   00000062  s_CSEG                          
 C:   00000080  l_DSEG                          
-C:   000000A6  s_CONST                         
-C:   000000A6  s_XINIT                         
-C:   000000F8  l_SSEG                          
+C:   000000AD  s_GSFINAL                       
+C:   000000B0  s_CSEG                          
+C:   000000DD  l_SSEG                          
 C:   00000100  l_IRAM                          
+C:   00000322  l_CSEG                          
+C:   000003D2  s_CONST                         
+C:   000003D2  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -251,16 +251,19 @@ DSEG                                00000000    00000080 =         128. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+     00000008  _gsmg_code                         beep
+     00000019  _ghc595_buf                        beep
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-SSEG                                00000008    000000F8 =         248. bytes (REL,OVR)
+SSEG                                00000023    000000DD =         221. bytes (REL,OVR)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000008  __start__stack                     beep
+     00000023  __start__stack                     beep
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 Hexadecimal  [32-Bits]
@@ -321,7 +324,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-GSFINAL                             0000005F    00000003 =           3. bytes (REL,CON,CODE)
+GSINIT                              0000005F    0000004E =          78. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -330,14 +333,32 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00000062    00000044 =          68. bytes (REL,CON,CODE)
+GSFINAL                             000000AD    00000003 =           3. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000062  _delay_10us                        beep
-C:   00000074  _main                              beep
-C:   000000A2  __sdcc_external_startup            _startup
 ASxxxx Linker V03.00 + NoICE + sdld,  page 16.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+CSEG                                000000B0    00000322 =         802. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+C:   000000B0  _delay_10us                        beep
+C:   000000C2  _delay_ms                          beep
+C:   000000E6  _smg_display                       beep
+C:   00000174  _key_scan                          beep
+C:   000001C5  _key_matrix_flip_scan              beep
+C:   00000248  _key_matrix_ranks_scan             beep
+C:   0000033D  _hc595_write_data                  beep
+C:   00000377  _exti0_init                        beep
+C:   0000037E  _time0_init                        beep
+C:   00000392  _uart_init                         beep
+C:   000003AC  _main                              beep
+C:   000003CE  __sdcc_external_startup            _startup
+ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
 
 Files Linked                              [ module(s) ]
 
@@ -359,7 +380,7 @@ Libraries Linked                          [ object file ]
 /usr/bin/../share/sdcc/lib/small/libsdcc.lib
                                           [ _startup.rel ]
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
 
 User Base Address Definitions
 
