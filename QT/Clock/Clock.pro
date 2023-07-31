@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2023-07-28T14:12:53
+# Project created by QtCreator 2023-07-28T15:03:44
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Progress
+TARGET = Clock
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -25,7 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        progressdlg.cpp
+        digiclock.cpp
 
 HEADERS += \
-        progressdlg.h
+        digiclock.h

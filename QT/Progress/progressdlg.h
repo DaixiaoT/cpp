@@ -1,13 +1,14 @@
 #ifndef PROGRESSDLG_H
 #define PROGRESSDLG_H
 
-#include <QDialog>
 #include <QLabel>
+#include <QDialog>
 #include <QLineEdit>
 #include <QProgressBar>
 #include <QComboBox>
 #include <QPushButton>
 #include <QGridLayout>
+
 class ProgressDlg : public QDialog
 {
     Q_OBJECT
@@ -26,7 +27,6 @@ private:
     QProgressBar *progressBar;
     QPushButton *starBtn;
     QGridLayout *mainLayout;
-
 };
 
 #endif // PROGRESSDLG_H

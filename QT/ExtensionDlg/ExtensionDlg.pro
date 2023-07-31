@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2023-07-28T14:12:53
+# Project created by QtCreator 2023-07-28T15:40:37
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Progress
+TARGET = ExtensionDlg
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -25,7 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        progressdlg.cpp
+        extensiondlg.cpp
 
 HEADERS += \
-        progressdlg.h
+        extensiondlg.h
