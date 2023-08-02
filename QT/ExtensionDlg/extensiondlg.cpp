@@ -56,6 +56,7 @@ void ExtensionDlg::createBaseInfo()
 
     QDialogButtonBox *btnBox = new QDialogButtonBox(Qt::Vertical);
     btnBox->addButton(OKBtn, QDialogButtonBox::ActionRole);
+    btnBox->addButton(DetailBtn, QDialogButtonBox::ActionRole);
     QHBoxLayout *mainlayout = new QHBoxLayout(baseWidge);
     mainlayout->addLayout(LeftLayout);
     mainlayout->addWidget(btnBox);

@@ -12,7 +12,7 @@ Palette::Palette(QWidget *parent)
 }
 
 void Palette::createCtrlFrame(){
-    ctrlFrame = new QFrame; //颜色选则面板
+    ctrlFrame = new QFrame; //颜色选择面板
 
     windowLabel = new QLabel(tr("QPalette::Window:"));
     windowComboBox = new QComboBox;//创建一个QComboBox对象
@@ -95,11 +95,11 @@ void Palette::ShowWindow(){
 }
 
 void Palette::ShowWindowText(){
-//    QStringList colorList = QColor::colorNames();
-//    QColor color = colorList[windowTextComboBox->currentIndex()];
-//    QPalette p = contentFrame->palette();
-//    p.setColor(QPalette::WindowText, color);
-//    contentFrame->setPalette(p);
+    QStringList colorList = QColor::colorNames();
+    QColor color = colorList[windowTextComboBox->currentIndex()];
+    QPalette p = contentFrame->palette();
+    p.setColor(QPalette::WindowText, color);
+    contentFrame->setPalette(p);
 }
 
 void Palette::ShowButton(){
